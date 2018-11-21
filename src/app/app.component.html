@@ -1,1 +1,3 @@
-<router-outlet></router-outlet>
+<router-outlet *ngIf="!loggedIn"></router-outlet>
+
+<app-layout *ngIf="loggedIn"></app-layout>

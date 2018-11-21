@@ -10,7 +10,10 @@ import { AuthService } from './_auth/services/auth.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
+  loggedIn: Boolean = false;
+
   private onLogout_subscription: Subscription;
+  private onLogin_subscription: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -22,9 +25,21 @@ export class AppComponent implements OnInit, OnDestroy {
     // listen for logout
     this.onLogout_subscription  = this.authService.onLogout.subscribe(
       () => {
+        this.loggedIn  = false;
         this.router.navigate(['/login']);
       }
     );
+
+    // listen for login
+    this.onLogin_subscription  = this.authService.onLogin.subscribe(
+      () => {
+        this.loggedIn  = true;
+      }
+    );
+
+    if (this.authService.hasToken()) {
+      this.loggedIn = true;
+    }
 
     // check and validate token
     if (this.authService.hasToken()) {
