@@ -50,14 +50,20 @@ export class AuthService {
     return this.token ? this.token : false;
   }
 
-  logout() {
-    this.http.get('/api/auth/logout').subscribe();
-
-    this.clearData();
-    this.onLogout.next();
+  async logout() {
+    return this.http.get('/api/auth/logout').toPromise().then(
+      () => {
+        this.clearData();
+        this.onLogout.next();
+        return true;
+      },
+      (err) => {
+        return false;
+      }
+    );
   }
 
-  async login(username: string = null , password: string = null ) {
+  async login(username: string = null , password: string = null ): Promise<any> {
     this.clearData();
 
     const loginData  = {

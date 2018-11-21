@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // add the extra styles for a public page
     this.document.body.className = 'publicPage';
 
     this.initForm();
@@ -37,7 +38,7 @@ export class LoginComponent implements OnInit {
           this.processing  = false;
         }
       },
-      err => { 
+      err => {
         this.processing = false;
       });
     }

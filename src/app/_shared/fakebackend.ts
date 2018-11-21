@@ -8,19 +8,13 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     constructor() { }
 
-    private makeid(): string {
-        let  text = '';
-        const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for (let i = 0; i < 25; i++) {
-          text += possible.charAt(Math.floor(Math.random() * possible.length));
-        }
-        return text;
-    }
-
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return of(null).pipe(mergeMap(() => {
 
             const auth    = request.headers.get('Authorization');
+
+            const fullName    = 'John Doe';
+            const email    = 'john@doe.com';
 
             // LOGIN
             if (request.url.endsWith('/api/auth/login') && request.method === 'POST') {
@@ -29,14 +23,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 const bodyPosted    = request.body;
 
                 const body = {
-
                     token : 'token_' + this.makeid(),
                     user : {
-                        fullname : 'Jane Doe',
-                        email : 'Jane@doe.com',
+                        fullname : fullName,
+                        email : email,
                         username : bodyPosted['username'],
                     }
-
                 };
                 return of(new HttpResponse({ status: 200, body: body }));
             }
@@ -47,25 +39,21 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 const body = {
                   success : true
                 };
-                // return a response
                 return of(new HttpResponse({ status: 200, body: body }));
             }
 
             // VALIDATE TOKEN
             if (request.url.endsWith('/api/auth/validate-token') && request.method === 'GET') {
+                console.log('intercepting ' + request.method + ' : ' + request.url + ' ' + auth);
                 const body = {
                     user : {
-                        fullname : 'Jane Doe',
-                        email : 'Jane@doe.com',
-                        username : 'Jane@doe.com',
+                        fullname : fullName,
+                        email : email,
+                        username : email,
                     }
                 };
-                // return a response
                 return of(new HttpResponse({ status: 200, body: body }));
             }
-
-
-
 
             // at default just process the request
             return next.handle(request);
@@ -73,6 +61,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         .pipe(materialize())
         .pipe(delay(500))
         .pipe(dematerialize());
-        
+    }
+
+    private makeid(): string {
+        let  text = '';
+        const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        for (let i = 0; i < 25; i++) {
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+        return text;
     }
 }

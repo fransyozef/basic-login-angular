@@ -9,7 +9,7 @@ import { AuthService } from './_auth/services/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  
+
   private onLogout_subscription: Subscription;
 
   constructor(
@@ -18,16 +18,18 @@ export class AppComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+
+    // listen for logout
     this.onLogout_subscription  = this.authService.onLogout.subscribe(
       () => {
         this.router.navigate(['/login']);
       }
     );
 
+    // check and validate token
     if (this.authService.hasToken()) {
       this.authService.validateTokenOnServer().subscribe(
         (result) => {
-          console.log(result);
           if (!result) {
             this.logout();
           }
