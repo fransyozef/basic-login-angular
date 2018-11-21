@@ -8,11 +8,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { UiModule } from './_shared/ui/ui.module';
 import { FakeBackendInterceptor } from './_shared/fakebackend';
-import { LoginComponent } from './_auth/login/login.component';
 import { AuthService } from './_auth/services/auth.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './_auth/guards/auth.guard';
 import { TokenIntercept } from './_auth/tokenintercept';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [

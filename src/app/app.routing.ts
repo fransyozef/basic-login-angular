@@ -4,9 +4,10 @@ import { ModuleWithProviders } from '@angular/core';
 import { LayoutComponent } from './_shared/ui/layout/layout.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './_auth/login/login.component';
+
 
 import { AuthGuard } from './_auth/guards/auth.guard';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
     {
@@ -22,7 +23,7 @@ const routes: Routes = [
     },
 
     { path: 'login', component: LoginComponent },
-
+    { path: '**', redirectTo: '/dashboard', pathMatch: 'full' },
     { path: '',  redirectTo: '/dashboard', pathMatch: 'full' }, // catch all route
 
 ];

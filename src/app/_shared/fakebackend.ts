@@ -6,6 +6,9 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
 
+    private fullName: String    = 'John Doe';
+    private email: String    = 'john@doe.com';
+
     constructor() { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -13,23 +16,27 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             const auth    = request.headers.get('Authorization');
 
-            const fullName    = 'John Doe';
-            const email    = 'john@doe.com';
-
             // LOGIN
             if (request.url.endsWith('/api/auth/login') && request.method === 'POST') {
+
                 console.log('intercepting ' + request.method + ' : ' + request.url + ' ' + auth);
+                const random    = (Math.floor(Math.random() * Math.floor(40)) % 4);
 
                 const bodyPosted    = request.body;
+                let body    = {};
 
-                const body = {
-                    token : 'token_' + this.makeid(),
-                    user : {
-                        fullname : fullName,
-                        email : email,
-                        username : bodyPosted['username'],
-                    }
-                };
+                // simulating a valid/invalid login
+                if (random !== 0) {
+                    body = {
+                        token : 'token_' + this.makeid(),
+                        user : {
+                            fullname : this.fullName,
+                            email : this.email,
+                            username : bodyPosted['username'],
+                        }
+                    };
+                }
+
                 return of(new HttpResponse({ status: 200, body: body }));
             }
 
@@ -47,9 +54,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 console.log('intercepting ' + request.method + ' : ' + request.url + ' ' + auth);
                 const body = {
                     user : {
-                        fullname : fullName,
-                        email : email,
-                        username : email,
+                        fullname : this.fullName,
+                        email : this.email,
+                        username : this.email,
                     }
                 };
                 return of(new HttpResponse({ status: 200, body: body }));
