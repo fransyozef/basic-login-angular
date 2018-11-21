@@ -8,13 +8,17 @@
 
             <div class="form-group">
               <label for="inputEmail">Email address *</label>
-              <input type="email" class="form-control rounded" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" formControlName="username">
+              <input type="email" [ngClass]="{'required': loginForm.get('username').hasError('required') }" class="form-control rounded" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" formControlName="username">
             </div>
 
             <div class="form-group">
                 <label for="inputPassword">Password *</label>
-                <input type="password" class="form-control rounded" id="inputPassword" aria-describedby="passwordHelp" placeholder="Enter password" formControlName="password">
+                <input type="password" class="form-control rounded" [ngClass]="{'required': loginForm.get('password').hasError('required') }" id="inputPassword" aria-describedby="passwordHelp" placeholder="Enter password" formControlName="password">
             </div>
+
+            <p class="alert alert-danger" role="alert" *ngIf="error">
+              <strong>There was an error!</strong><br>Please check your username/password and try again.
+            </p>
 
             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="button" [disabled]="!loginForm.valid || processing" (click)="onSubmitButtonClicked()">{{ processing ? 'Validating...' : 'Sign in' }}</button>
 

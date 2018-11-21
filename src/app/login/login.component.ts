@@ -13,7 +13,9 @@ import { AuthService } from '../_auth/services/auth.service';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+
   processing: Boolean = false;
+  error: Boolean = false;
 
   constructor(
     @Inject(DOCUMENT) private document: any,
@@ -29,6 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmitButtonClicked() {
+    this.error  = false;
     if (this.loginForm.valid) {
       this.processing  = true;
       this.authService.login(this.loginForm.value.username , this.loginForm.value.password).then(
@@ -37,10 +40,12 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/dashboard']);
         } else {
           this.processing  = false;
+          this.error  = true;
         }
       },
       err => {
         this.processing = false;
+        this.error  = true;
       });
     }
   }
