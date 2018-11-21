@@ -16,6 +16,14 @@ Every project I have authentication (web or mobile), I keep repeating myself and
 - Angular Routing system
 - Some RxJS function (http://reactivex.io/) 
 
+## Install and run this project
+- Install NodeJS (https://nodejs.org)
+- Install Angular CLI (https://cli.angular.io/)
+- Download or clone this repository on your computer
+- Open your termninal and navigate to the project root folder and enter ``` npm install ```
+- Next to build and start the project : ``` npm start ```
+- Open your browser and nevigate to http://localhost:4200/
+
 ## The authentication pattern
 So what's the authentication pattern/lifecycle?
 
@@ -43,7 +51,7 @@ Each time you start the application, it checks if there was a token stored. The 
 - If everything in the the above steps is ok, then the application can just continue.
 - If there was an error of any kind, the logout process is started and the user will be presented with the login screen
 
-If you want, you coud also validate the token, each time a secured page is called by the application. Do keep in mind that this also requires new api requests to the server. For my example project, I've choosen to only validate when you start the application.
+If you want, you could also validate the token, each time a secured page is called by the application. Do keep in mind that this also requires new api requests to the server. For my example project, I've choosen to only validate when you start the application.
 
 ## Logout flow
 When the logout process is started (started by the user or by the application), the following wil happen:
