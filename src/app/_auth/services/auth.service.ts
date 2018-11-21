@@ -53,7 +53,10 @@ export class AuthService {
   async logout() {
     return this.http.get('/api/auth/logout').toPromise().then(
       () => {
+        // clear any current data
         this.clearData();
+
+        // tell the rest of the application about the logout
         this.onLogout.next();
         return true;
       },
@@ -64,8 +67,11 @@ export class AuthService {
   }
 
   async login(username: string = null , password: string = null ): Promise<any> {
+
+    // clear any current data
     this.clearData();
 
+    // create the payload data for the api request
     const loginData  = {
       'username' : username,
       'password' : password
@@ -74,13 +80,18 @@ export class AuthService {
     return this.http.post('/api/auth/login' , loginData).toPromise().then(
       data => {
         if (data['token'] && data['user']) {
+
+          // store the token in the service
           this.token  = data['token'];
 
-          localStorage.setItem('token' , this.token);
-          localStorage.setItem('usermeta' , JSON.stringify(data['user']));
-
+          // store some user data in the service
           this.userData  = data['user'];
 
+          // store some data in local storage (webbrowser)
+          localStorage.setItem('token' , this.token);
+          localStorage.setItem('usermeta' , JSON.stringify(this.userData));
+
+          // tell the rest of the application about the login
           this.onLogin.next();
 
           return this.userData;
