@@ -8,11 +8,11 @@ Every project I have authentication (web or mobile), I keep repeating myself and
 - Bootstrap 4 (https://getbootstrap.com/)
 - Fontawesome 5 (https://fontawesome.com/)
 - Angular 6 (https://angular.io/)
-- A basisc authentication service to handle the login/logout/check authentication token
-- A simple secure dashboard
+- A basic authentication service to handle the login/logout/check authentication token
+- A simple secured dashboard
 - A simple login page (including error handling)
 - A fake backend service to handle the api request
-- A service to inject the authentication token on each request to the api
+- A service to inject the authentication token on each request to the api endpoint
 - Angular Routing system
 - Some RxJS function (http://reactivex.io/) 
 
@@ -20,7 +20,7 @@ Every project I have authentication (web or mobile), I keep repeating myself and
 - Install NodeJS (https://nodejs.org)
 - Install Angular CLI (https://cli.angular.io/)
 - Download or clone this repository on your computer
-- Open your termninal and navigate to the project root folder and enter ``` npm install ```
+- Open your termninal and navigate to the project root folder and enter :  ``` npm install ```
 - Next to build and start the project : ``` npm start ```
 - Open your browser and nevigate to http://localhost:4200/
 
@@ -28,7 +28,7 @@ Every project I have authentication (web or mobile), I keep repeating myself and
 So what's the authentication pattern/lifecycle?
 
 - Login (validate the user on the serve)
-- Check the auhtentication status of the logged in user
+- Check the auhtentication status of the user
 - Logout
 
 Sounds easy right? But a lot goes into this logic. And a lot of this logic goes behind the scenes. Let's dive into it.
