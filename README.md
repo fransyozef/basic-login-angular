@@ -22,7 +22,7 @@ Every project I have authentication (web or mobile), I keep repeating myself and
 - Download or clone this repository on your computer
 - Open your termninal and navigate to the project root folder and enter :  ``` npm install ```
 - Next to build and start the project : ``` npm start ```
-- Open your browser and nevigate to http://localhost:4200/
+- Open your browser and navigate to http://localhost:4200/
 
 ## The authentication pattern
 So what's the authentication pattern/lifecycle?
