@@ -66,6 +66,7 @@ So now we got the the basics covered. Let's see some Angular specific logic choi
 ## Login
 So I've made an authentication service to handle the login. Normally I would create a service function with a http request and subscribe to it. I think most Angular developers can relate to this. But in this example I've changed it a little bit (because I can). 
 
+
 I came across this post about converting the subscribe to a promise with the help of the async-await feature : https://medium.com/@balramchavan/using-async-await-feature-in-angular-587dd56fdc77. The idea is to make the http request, but the result is then converted to a promise. The authors statement is that it's not logical to subscribe or stream when you only do the request once. The login part is a one time only. You don't login on each page. You only login again when you're logged out again. So I decided to give this method a go. The downside of this technique is you can't use the pipe() method.
 
 ## Public and secure layout pages
