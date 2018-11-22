@@ -77,6 +77,9 @@ export class AuthService {
     };
 
     const data  = await this.http.post('/api/auth/login' , loginData).toPromise();
+
+    // this part only gets executed when the promise is resolved
+    
     if (data['token'] && data['user']) {
             // store the token in the service
             this.token  = data['token'];

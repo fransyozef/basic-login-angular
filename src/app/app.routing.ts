@@ -1,12 +1,9 @@
 import { RouterModule, Routes } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
-import { LayoutComponent } from './_shared/ui/layout/layout.component';
+import { AuthGuard } from './_auth/guards/auth.guard';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-
-
-import { AuthGuard } from './_auth/guards/auth.guard';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [

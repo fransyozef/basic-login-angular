@@ -1,5 +1,6 @@
 # Basic login project with Angular 6
-This is a example of a login with Angular6. Well it's not only login, its actually authentication and it's basic pattern.
+This is a example of a login with Angular6. Well it's not only login, its actually authentication and it's basic pattern. I've also got a Medium post about this project : https://medium.com/@fransyozef/a-basic-angular-dashboard-template-with-authentication-5785e1a793a
+
 
 ## Reinventing the wheel again
 Every project I have authentication (web or mobile), I keep repeating myself and write the authentication layer from scratch. As I get older, I wanted to have a basic goto authentication template to work with. So that's the reason of this little sample project.
