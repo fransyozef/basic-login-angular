@@ -34,20 +34,26 @@ export class LoginComponent implements OnInit {
     this.error  = false;
     if (this.loginForm.valid) {
       this.processing  = true;
+
       this.authService.login(this.loginForm.value.username , this.loginForm.value.password).then(
       data => {
         if (data) {
           this.router.navigate(['/dashboard']);
         } else {
-          this.processing  = false;
-          this.error  = true;
+          this.handleLoginError();
         }
       },
       err => {
-        this.processing = false;
-        this.error  = true;
+        console.log('---- ERROR ---- ');
+        console.log(err);
+        this.handleLoginError();
       });
     }
+  }
+
+  private handleLoginError() {
+    this.processing = false;
+    this.error  = true;
   }
 
   private initForm() {

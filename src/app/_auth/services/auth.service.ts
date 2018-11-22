@@ -66,9 +66,8 @@ export class AuthService {
     );
   }
 
-  async login(username: string = null , password: string = null ): Promise<any> {
-
-    // clear any current data
+  async login(username: string = null , password: string = null ): Promise<any>  {
+    // clear some data
     this.clearData();
 
     // create the payload data for the api request
@@ -77,31 +76,25 @@ export class AuthService {
       'password' : password
     };
 
-    return this.http.post('/api/auth/login' , loginData).toPromise().then(
-      data => {
-        if (data['token'] && data['user']) {
+    const data  = await this.http.post('/api/auth/login' , loginData).toPromise();
+    if (data['token'] && data['user']) {
+            // store the token in the service
+            this.token  = data['token'];
 
-          // store the token in the service
-          this.token  = data['token'];
+            // store some user data in the service
+            this.userData  = data['user'];
 
-          // store some user data in the service
-          this.userData  = data['user'];
+            // store some data in local storage (webbrowser)
+            localStorage.setItem('token' , this.token);
+            localStorage.setItem('usermeta' , JSON.stringify(this.userData));
 
-          // store some data in local storage (webbrowser)
-          localStorage.setItem('token' , this.token);
-          localStorage.setItem('usermeta' , JSON.stringify(this.userData));
+            // tell the rest of the application about the login
+            this.onLogin.next();
 
-          // tell the rest of the application about the login
-          this.onLogin.next();
-
-          return this.userData;
-        }
-        return false;
-      },
-      err => {
-        return false;
-      }
-    );
+            return this.userData;
+    } else {
+      return false;
+    }
   }
 
   clearData() {
