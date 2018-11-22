@@ -77,6 +77,8 @@ So I've made an authentication service to handle the login. Normally I would cre
 
 I came across this post about converting the subscribe to a promise with the help of the async-await feature : https://medium.com/@balramchavan/using-async-await-feature-in-angular-587dd56fdc77. The idea is to make the http request, but the result is then converted to a promise. The authors statement is that it's not logical to subscribe or stream when you only do the request once. The login part is a one time only. You don't login on each page. You only login again when you're logged out again. So I decided to give this method a go. The downside of this technique is you can't use the pipe() method.
 
+Also to simulate a real backend server, I included a fake backend server. The fake backend server will catch the api login request and then will return either a valid login or a failed login (it's random). This is a way to test the server response and what the user sees when the login was failed.
+
 ## Public and secure layout pages
 I wanted to have 2 completely layouts for the login page (a public page) and secured pages. In order to do that I have setup an UI module wich holds the secured template layout. The app.component.html will server either the just the public page (just normal router link) or the LayoutComponent (the secured layout page) based on the authentication status. In the routing file a secure page is marked with the canActivate key with is mapped to a guard.
 
