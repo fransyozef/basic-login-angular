@@ -1,5 +1,5 @@
 import { Component, OnInit , Inject } from '@angular/core';
-import { Validators, AbstractControl, FormBuilder, FormGroup, FormControl , Validator} from '@angular/forms';
+import { Validators, AbstractControl, FormBuilder, FormGroup, FormControl , Validator , FormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 

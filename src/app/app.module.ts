@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { routingModule } from './app.routing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { APP_BASE_HREF } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { UiModule } from './_shared/ui/ui.module';
@@ -27,8 +28,10 @@ import { LoginComponent } from './login/login.component';
     RouterModule,
     routingModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [
+    { provide: APP_BASE_HREF, useValue: '/'},
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
