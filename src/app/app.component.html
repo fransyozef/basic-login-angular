@@ -1,5 +1,5 @@
 <!-- The normal outlet for the public pages -->
-<router-outlet *ngIf="!loggedIn"></router-outlet>
+<router-outlet *ngIf="!(loggedIn$ | async)"></router-outlet>
 
 <!-- The component wich holds the master template layout -->
-<app-layout *ngIf="loggedIn"></app-layout>
+<app-layout *ngIf="loggedIn$ | async"></app-layout>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, Subject, throwError, of } from 'rxjs';
+import { Observable, Subject, throwError, of, BehaviorSubject } from 'rxjs';
 import { map, mergeMap, switchMap, catchError } from 'rxjs/operators';
 import { UserModel } from '../models/user.model';
 
@@ -9,7 +9,9 @@ import { UserModel } from '../models/user.model';
 })
 export class AuthService {
 
-  onLogin  = new Subject<any>();
+  isLoggedIn = new BehaviorSubject(false);
+
+  onLogin  = new Subject<any>(); // deprecated
   onLogout  = new Subject<any>();
 
   private token: string  = null;
@@ -22,6 +24,11 @@ export class AuthService {
   }
 
   validateTokenOnServer() {
+    if (this.hasToken)  {
+      // let's just assume for now the user is authenticated because there is a token
+      this.isLoggedIn.next(true);
+    }
+
     return this.http.get('/api/auth/validate-token')
       .pipe(
         map(data => {
@@ -29,6 +36,7 @@ export class AuthService {
               this.userData  = data['user'];
               return this.userData;
             }
+            this.isLoggedIn.next(false);
             return false;
           }
         ),
@@ -40,6 +48,7 @@ export class AuthService {
 
   resolveToken() {
     this.token = localStorage.getItem('token');
+    this.isLoggedIn.next(this.token ?  true : false);
   }
 
   getToken(): string {
@@ -57,7 +66,7 @@ export class AuthService {
         this.clearData();
 
         // tell the rest of the application about the logout
-        this.onLogout.next();
+        this.isLoggedIn.next(false);
         return true;
       },
       (err) => {
@@ -79,7 +88,7 @@ export class AuthService {
     const data  = await this.http.post('/api/auth/login' , loginData).toPromise();
 
     // this part only gets executed when the promise is resolved
-    
+
     if (data['token'] && data['user']) {
             // store the token in the service
             this.token  = data['token'];
@@ -91,8 +100,7 @@ export class AuthService {
             localStorage.setItem('token' , this.token);
             localStorage.setItem('usermeta' , JSON.stringify(this.userData));
 
-            // tell the rest of the application about the login
-            this.onLogin.next();
+            this.isLoggedIn.next(true);
 
             return this.userData;
     } else {

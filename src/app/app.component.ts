@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 
@@ -12,10 +12,8 @@ import { AuthService } from './_auth/services/auth.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  loggedIn: Boolean = false;
-
-  private onLogout_subscription: Subscription;
-  private onLogin_subscription: Subscription;
+  loggedIn$: BehaviorSubject<boolean>;
+  private isLoggedIn_subscription: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -25,26 +23,17 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    // listen for logout
-    this.onLogout_subscription  = this.authService.onLogout.subscribe(
-      () => {
-        this.loggedIn  = false;
-        this.router.navigate(['/login']);
-        this.checkBodyClassName();
+    this.loggedIn$  =  this.authService.isLoggedIn;
+
+    this.isLoggedIn_subscription  = this.authService.isLoggedIn.subscribe(
+      (status) => {
+        this.document.body.className = status ? '' : 'publicPage';
+
+        if (!status) {
+          this.router.navigate(['/login']);
+        }
       }
     );
-
-    // listen for login
-    this.onLogin_subscription  = this.authService.onLogin.subscribe(
-      () => {
-        this.loggedIn  = true;
-        this.checkBodyClassName();
-      }
-    );
-
-    if (this.authService.hasToken()) {
-      this.loggedIn = true;
-    }
 
     // check and validate token
     if (this.authService.hasToken()) {
@@ -53,23 +42,17 @@ export class AppComponent implements OnInit, OnDestroy {
           if (!result) {
             this.logout();
           }
-          this.checkBodyClassName();
         }
       );
     }
 
-    this.checkBodyClassName();
   }
 
   ngOnDestroy() {
-    if (this.onLogout_subscription)  { this.onLogout_subscription.unsubscribe(); }
+    if (this.isLoggedIn_subscription)  { this.isLoggedIn_subscription.unsubscribe(); }
   }
 
-  checkBodyClassName() {
-    this.document.body.className = this.loggedIn ? '' : 'publicPage';
-  }
-
-  logout() {
+  private logout() {
     this.authService.logout();
   }
 }
