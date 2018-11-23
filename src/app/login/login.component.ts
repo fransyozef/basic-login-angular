@@ -1,7 +1,6 @@
 import { Component, OnInit , Inject } from '@angular/core';
 import { Validators, AbstractControl, FormBuilder, FormGroup, FormControl , Validator , FormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
 
 import { AuthService } from '../_auth/services/auth.service';
 
@@ -18,15 +17,11 @@ export class LoginComponent implements OnInit {
   error: Boolean = false;
 
   constructor(
-    @Inject(DOCUMENT) private document: any,
     private authService: AuthService,
     private router: Router,
   ) { }
 
   ngOnInit() {
-    // add the extra styles for a public page
-    this.document.body.className = 'publicPage';
-
     this.initForm();
   }
 

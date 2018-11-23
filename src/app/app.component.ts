@@ -1,6 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
+
 import { AuthService } from './_auth/services/auth.service';
 
 @Component({
@@ -18,6 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private router: Router,
+    @Inject(DOCUMENT) private document: any,
   ) { }
 
   ngOnInit() {
@@ -27,6 +30,7 @@ export class AppComponent implements OnInit, OnDestroy {
       () => {
         this.loggedIn  = false;
         this.router.navigate(['/login']);
+        this.checkBodyClassName();
       }
     );
 
@@ -34,6 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.onLogin_subscription  = this.authService.onLogin.subscribe(
       () => {
         this.loggedIn  = true;
+        this.checkBodyClassName();
       }
     );
 
@@ -48,13 +53,20 @@ export class AppComponent implements OnInit, OnDestroy {
           if (!result) {
             this.logout();
           }
+          this.checkBodyClassName();
         }
       );
     }
+
+    this.checkBodyClassName();
   }
 
   ngOnDestroy() {
     if (this.onLogout_subscription)  { this.onLogout_subscription.unsubscribe(); }
+  }
+
+  checkBodyClassName() {
+    this.document.body.className = this.loggedIn ? '' : 'publicPage';
   }
 
   logout() {
