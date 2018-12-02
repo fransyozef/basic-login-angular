@@ -29,8 +29,12 @@ export class LoginComponent implements OnInit {
     this.error  = false;
     if (this.loginForm.valid) {
       this.processing  = true;
+      this.login();
+    }
+  }
 
-      this.authService.login(this.loginForm.value.username , this.loginForm.value.password).then(
+  private login() {
+    this.authService.login(this.loginForm.value).then(
       data => {
         if (data) {
           this.router.navigate(['/dashboard']);
@@ -43,7 +47,6 @@ export class LoginComponent implements OnInit {
         console.log(err);
         this.handleLoginError();
       });
-    }
   }
 
   private handleLoginError() {

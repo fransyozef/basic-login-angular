@@ -55,8 +55,8 @@ export class AuthService {
     return this.token;
   }
 
-  hasToken(): boolean | string {
-    return this.token ? this.token : false;
+  hasToken(): boolean  {
+    return this.token ? true : false;
   }
 
   async logout() {
@@ -75,7 +75,7 @@ export class AuthService {
     );
   }
 
-  async login(username: string = null , password: string = null ): Promise<any>  {
+  async login({ username , password }): Promise<any>  {
     // clear some data
     this.clearData();
 
