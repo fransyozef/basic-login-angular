@@ -33,6 +33,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  checkField(field: FormControl): boolean {
+    return field.hasError('required') && (field.dirty || field.touched);
+  }
+
   private login() {
     this.authService.login(this.loginForm.value).then(
       data => {

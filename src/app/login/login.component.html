@@ -8,12 +8,12 @@
 
             <div class="form-group">
               <label for="inputEmail">Email address *</label>
-              <input type="email" [ngClass]="{'required': loginForm.get('username').hasError('required') && (loginForm.get('username').dirty || loginForm.get('username').touched) }" class="form-control rounded" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" formControlName="username">
+              <input type="email" [ngClass]="{'required': checkField(loginForm.get('username')) }" class="form-control rounded" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" formControlName="username">
             </div>
 
             <div class="form-group">
                 <label for="inputPassword">Password *</label>
-                <input type="password" class="form-control rounded" [ngClass]="{'required': loginForm.get('password').hasError('required') && (loginForm.get('password').dirty || loginForm.get('password').touched) }" id="inputPassword" aria-describedby="passwordHelp" placeholder="Enter password" formControlName="password">
+                <input type="password" class="form-control rounded" [ngClass]="{'required': checkField(loginForm.get('password')) }" id="inputPassword" aria-describedby="passwordHelp" placeholder="Enter password" formControlName="password">
             </div>
 
             <p class="alert alert-danger" role="alert" *ngIf="error">
