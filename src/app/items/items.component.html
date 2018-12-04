@@ -4,6 +4,12 @@
   <div class="row">
 
     <div class="col-md-8">
+
+      <p *ngIf="!hasItems(items$ | async)" class="alert alert-danger" role="alert">
+        <Strong>You don't have any items.</Strong><br>
+        Try adding one.
+      </p>
+
       <app-items-list></app-items-list>
     </div>
 
