@@ -1,0 +1,14 @@
+<li class="list-group-item" style="margin-bottom:10px;">
+  <Strong>{{ item.title }}</Strong>
+  <hr>
+  {{ item.description }}
+
+  <div class="row" style="padding-top:10;">
+    <div class="col-md-6">
+      <button class='btn btn-primary btn-block' type='button' (click)="edit()">edit item</button>
+    </div>
+    <div class="col-md-6">
+      <button class='btn btn-danger btn-block' type='button' (click)="delete()">delete item</button>
+    </div>
+  </div>
+</li>

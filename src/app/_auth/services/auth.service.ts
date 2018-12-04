@@ -24,9 +24,10 @@ export class AuthService {
   }
 
   validateTokenOnServer() {
+    console.log('** validateTokenOnServer **');
     if (this.hasToken)  {
       // let's just assume for now the user is authenticated because there is a token
-      this.isLoggedIn.next(true);
+      // this.isLoggedIn.next(true);
     }
 
     return this.http.get('/api/auth/validate-token')

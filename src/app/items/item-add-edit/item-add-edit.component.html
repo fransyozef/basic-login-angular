@@ -1,0 +1,18 @@
+<form  [formGroup]="itemForm">
+
+    <div class="form-group">
+      <label for="inputTitle">Title *</label>
+      <input type="text" class="form-control" id="inputTitle" placeholder="Title" formControlName="title">
+    </div>
+
+    <div class="form-group">
+        <label for="inputDescription">Description</label>
+        <input type="text" class="form-control" id="inputDescription" placeholder="Description" formControlName="description">
+    </div>
+
+
+    <p class="alert alert-warning" role="alert"  *ngIf="isProcessing">
+        Please wait..
+    </p>
+    <button *ngIf="!isProcessing" type="button" class="btn btn-primary btn-block" (click)="onSubmit($event)" [disabled]="!itemForm.valid && !isProcessing">{{getButtonText()}}</button>
+</form>

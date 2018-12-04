@@ -16,12 +16,74 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             const auth    = request.headers.get('Authorization');
 
+            // Items list
+            if (request.url.endsWith('/api/items') && request.method === 'GET') {
+
+                console.log('[ intercepting ] ' + request.method + ' : ' + request.url + ' ' + auth);
+
+                const body = {
+                    result : [
+                        {
+                            title : 'Item 1',
+                            description : 'Description 1',
+                            id : 1
+                        },
+                        {
+                            title : 'Item 2',
+                            description : 'Description 2',
+                            id : 2
+                        }
+                    ]
+                };
+                return of(new HttpResponse({ status: 200, body: body }));
+            }
+
+            // Add item
+            if (request.url.endsWith('/api/item') && request.method === 'POST') {
+
+                console.log('[ intercepting ] ' + request.method + ' : ' + request.url + ' ' + auth);
+
+                const bodyPosted    = request.body;
+                const random    = (Math.floor(Math.random() * Math.floor(1000)) + 1);
+                const newResult    = { ...bodyPosted , id: random};
+
+                const body = {
+                    success : bodyPosted ? true : false,
+                    result : newResult
+                };
+                return of(new HttpResponse({ status: 200, body: body }));
+            }
+
+            // Update item
+            if (request.url.startsWith('/api/item') && request.method === 'PUT') {
+
+                console.log('[ intercepting ] ' + request.method + ' : ' + request.url + ' ' + auth);
+
+                const bodyPosted    = request.body;
+
+                const body = {
+                    success : bodyPosted ? true : false,
+                    result : bodyPosted
+                };
+                return of(new HttpResponse({ status: 200, body: body }));
+            }
+
+            // Delete item
+            if (request.url.startsWith('/api/item/') && request.method === 'DELETE') {
+                console.log('[ intercepting ] ' + request.method + ' : ' + request.url + ' ' + auth);
+                const body = {
+                    success : true
+                };
+                return of(new HttpResponse({ status: 200, body: body }));
+            }
+
+
             // LOGIN
             if (request.url.endsWith('/api/auth/login') && request.method === 'POST') {
 
-                console.log('intercepting ' + request.method + ' : ' + request.url + ' ' + auth);
-                const random    = (Math.floor(Math.random() * Math.floor(40)) % 4);
+                console.log('[ intercepting ] ' + request.method + ' : ' + request.url + ' ' + auth);
 
+                const random    = (Math.floor(Math.random() * Math.floor(40)) % 4);
                 const bodyPosted    = request.body;
                 let body    = {};
 
@@ -42,7 +104,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             // LOGOUT
             if (request.url.endsWith('/api/auth/logout') && request.method === 'GET') {
-                console.log('intercepting ' + request.method + ' : ' + request.url + ' ' + auth);
+                console.log('[ intercepting ] ' + request.method + ' : ' + request.url + ' ' + auth);
                 const body = {
                   success : true
                 };
@@ -51,7 +113,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             // VALIDATE TOKEN
             if (request.url.endsWith('/api/auth/validate-token') && request.method === 'GET') {
-                console.log('intercepting ' + request.method + ' : ' + request.url + ' ' + auth);
+                console.log('[ intercepting ] ' + request.method + ' : ' + request.url + ' ' + auth);
                 const body = {
                     user : {
                         fullname : this.fullName,

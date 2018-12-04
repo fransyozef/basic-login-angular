@@ -14,12 +14,23 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './_auth/guards/auth.guard';
 import { TokenIntercept } from './_auth/tokenintercept';
 import { LoginComponent } from './login/login.component';
+import { ItemsComponent } from './items/items.component';
+import { ItemsListComponent } from './items/items-list/items-list.component';
+import { ItemsListItemComponent } from './items/items-list-item/items-list-item.component';
+import { ItemsService } from './items/_services/items.service';
+import { ItemEditComponent } from './items/item-edit/item-edit.component';
+import { ItemAddEditComponent } from './items/item-add-edit/item-add-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
+    ItemsComponent,
+    ItemsListComponent,
+    ItemsListItemComponent,
+    ItemEditComponent,
+    ItemAddEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +55,7 @@ import { LoginComponent } from './login/login.component';
       multi: true
     },
     AuthService,
+    ItemsService
   ],
   bootstrap: [AppComponent]
 })
