@@ -3,7 +3,7 @@ This is a example of a login with Angular6. Well it's not only login, its actual
 
 
 ## Reinventing the wheel again
-Every project I have authentication (web or mobile), I keep repeating myself and write the authentication layer from scratch. As I get older, I wanted to have a basic goto authentication template to work with. So that's the reason of this little sample project.
+In every project I have authentication (web or mobile), I keep repeating myself and write the authentication layer from scratch. As I get older, I wanted to have a basic goto authentication template to work with. So that's the reason of this little sample project.
 
 ## What's in this project?
 - Bootstrap 4 (https://getbootstrap.com/)
