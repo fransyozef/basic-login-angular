@@ -7,12 +7,12 @@
           <form class="form-signin" [formGroup]="loginForm">
 
             <div class="form-group">
-              <label for="inputEmail">Email address *</label>
+              <label for="inputEmail" [ngClass]="{'required': checkField(loginForm.get('username')) }">Email address *</label>
               <input type="email" [ngClass]="{'required': checkField(loginForm.get('username')) }" class="form-control rounded" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" formControlName="username">
             </div>
 
             <div class="form-group">
-                <label for="inputPassword">Password *</label>
+                <label for="inputPassword" [ngClass]="{'required': checkField(loginForm.get('username')) }">Password *</label>
                 <input type="password" class="form-control rounded" [ngClass]="{'required': checkField(loginForm.get('password')) }" id="inputPassword" aria-describedby="passwordHelp" placeholder="Enter password" formControlName="password">
             </div>
 

@@ -1,8 +1,8 @@
 <form  [formGroup]="itemForm">
 
     <div class="form-group">
-      <label for="inputTitle">Title *</label>
-      <input type="text" class="form-control" id="inputTitle" placeholder="Title" formControlName="title">
+      <label for="inputTitle" [ngClass]="{'required': checkField(itemForm.get('title')) }">Title *</label>
+      <input type="text" class="form-control" id="inputTitle" placeholder="Title" formControlName="title"  [ngClass]="{'required': checkField(itemForm.get('title')) }">
     </div>
 
     <div class="form-group">

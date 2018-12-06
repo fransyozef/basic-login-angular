@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Validators, AbstractControl, FormBuilder, FormGroup, FormControl , Validator , FormsModule} from '@angular/forms';
 import { Observable, Subject , Subscription,BehaviorSubject } from 'rxjs';
+import { CheckRequiredField } from '../../_shared/helpers/form.helper';
+
 import { ItemsService } from '../_services/items.service';
 import { ItemModel } from '../_models/item.model';
 
@@ -17,6 +19,8 @@ export class ItemAddEditComponent implements OnInit {
   itemForm: FormGroup;
 
   isProcessing: Boolean = false;
+
+  checkField  = CheckRequiredField;
 
   constructor(
     private itemsService: ItemsService

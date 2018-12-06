@@ -2,6 +2,7 @@ import { Component, OnInit , Inject } from '@angular/core';
 import { Validators, AbstractControl, FormBuilder, FormGroup, FormControl , Validator , FormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { CheckRequiredField } from '../_shared/helpers/form.helper';
 import { AuthService } from '../_auth/services/auth.service';
 
 @Component({
@@ -15,6 +16,8 @@ export class LoginComponent implements OnInit {
 
   processing: Boolean = false;
   error: Boolean = false;
+
+  checkField  = CheckRequiredField;
 
   constructor(
     private authService: AuthService,
@@ -33,9 +36,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  checkField(field: FormControl): boolean {
-    return field.hasError('required') && (field.dirty || field.touched);
-  }
+  // checkField(field: FormControl): boolean {
+  //   return field.hasError('required') && (field.dirty || field.touched);
+  // }
 
   private login() {
     this.authService.login(this.loginForm.value).then(
