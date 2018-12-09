@@ -129,17 +129,18 @@ export class ItemsService {
     return false;
   }
 
+  // deprecated
   setFetchCount(count: number) {
     this.fetchCount$.next(count);
   }
 
+  // deprecated
   increaseFetchCount() {
     this.fetchCount$.next(this.fetchCount$.getValue() + 1);
   }
 
   fetch(): Observable<any> {
-    this.setFetchCount(0);
-    // console.log('** fetching **');
+
     this.clear();
 
     return this.http.get('/api/items')
@@ -148,11 +149,8 @@ export class ItemsService {
             return (data['result']) ? data['result'] : false;
           }
         ),
-        tap(items => this.items$.next(items)),
-        // tap(() => { console.log('** done fetching **'); }),
-        // tap(() => { this.increaseFetchCount(); }),
+        tap((items) => { if (items) { this.items$.next(items); }}),
         catchError(err => {
-          // this.increaseFetchCount();
           return of(false);
         }),
       );
