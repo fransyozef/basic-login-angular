@@ -1,12 +1,29 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, async, inject } from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ItemsService } from './items.service';
 
 describe('ItemsService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+
+  let service: ItemsService;
+
+  beforeEach(() => {
+
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule
+      ],
+      providers : [
+        HttpClient,
+        ItemsService,
+      ]
+    });
+
+  });
 
   it('should be created', () => {
-    const service: ItemsService = TestBed.get(ItemsService);
+    service = TestBed.get(ItemsService);
     expect(service).toBeTruthy();
   });
 });

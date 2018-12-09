@@ -15,6 +15,12 @@ import { UiModule } from '../ui.module';
 import { LoginComponent } from 'src/app/login/login.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { APP_BASE_HREF } from '@angular/common';
+import { ItemsComponent } from 'src/app/items/items.component';
+import { ItemsListComponent } from 'src/app/items/items-list/items-list.component';
+import { ItemsListItemComponent } from 'src/app/items/items-list-item/items-list-item.component';
+import { ItemAddEditComponent } from 'src/app/items/item-add-edit/item-add-edit.component';
+import { ItemEditComponent } from 'src/app/items/item-edit/item-edit.component';
+import { ItemsService } from 'src/app/items/_services/items.service';
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
@@ -28,6 +34,11 @@ describe('LayoutComponent', () => {
         FooterComponent,
         DashboardComponent,
         LoginComponent,
+        ItemsComponent,
+        ItemsListComponent,
+        ItemsListItemComponent,
+        ItemEditComponent,
+        ItemAddEditComponent,
       ],
       imports: [
         RouterModule,
@@ -39,6 +50,7 @@ describe('LayoutComponent', () => {
       ],
       providers: [
         AuthService,
+        ItemsService,
         HttpClient,
         {provide: APP_BASE_HREF, useValue: '/'}
       ]

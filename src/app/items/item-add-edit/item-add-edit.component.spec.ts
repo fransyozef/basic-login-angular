@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { ItemAddEditComponent } from './item-add-edit.component';
+import { ItemsService } from '../_services/items.service';
 
 describe('ItemAddEditComponent', () => {
   let component: ItemAddEditComponent;
@@ -8,7 +12,16 @@ describe('ItemAddEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemAddEditComponent ]
+      declarations: [ ItemAddEditComponent ],
+      imports: [
+        ReactiveFormsModule,
+        FormsModule,
+        HttpClientTestingModule,
+      ],
+      providers : [
+        HttpClient,
+        ItemsService,
+      ]
     })
     .compileComponents();
   }));
