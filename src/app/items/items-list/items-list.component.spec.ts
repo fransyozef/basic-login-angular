@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 import { routingModule } from '../../app.routing';
 
-import { TesCommonDeclarations } from '../../_shared/helpers/test.helper';
+import { TestCommonDeclarations } from '../../_shared/helpers/test.helper';
 
 import { ItemsListComponent } from './items-list.component';
 
@@ -18,7 +18,7 @@ describe('ItemsListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        ...TesCommonDeclarations,
+        ...TestCommonDeclarations,
       ],
       imports: [
         ReactiveFormsModule,

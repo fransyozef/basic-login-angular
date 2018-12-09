@@ -11,7 +11,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { routingModule } from '../../app.routing';
 import { RouterModule } from '@angular/router';
 
-import { TesCommonDeclarations } from '../../_shared/helpers/test.helper';
+import { TestCommonDeclarations } from '../../_shared/helpers/test.helper';
 
 
 
@@ -26,7 +26,7 @@ describe('ItemsListItemComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        ...TesCommonDeclarations,
+        ...TestCommonDeclarations,
       ],
       imports: [
         RouterModule,
@@ -43,16 +43,12 @@ describe('ItemsListItemComponent', () => {
     })
     .compileComponents();
 
-    // router = TestBed.get(Router);
-    // location = TestBed.get(Location);
-
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemsListItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    router.initialNavigation();
   });
 
   it('should create', () => {

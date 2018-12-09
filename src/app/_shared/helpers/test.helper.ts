@@ -32,7 +32,7 @@ export const TestLoginDeclarations = [
     LoginComponent,
 ];
 
-export const TesCommonDeclarations = [
+export const TestCommonDeclarations = [
     ...TestLoginDeclarations,
     ...TestUiDeclarations,
     ...TestDashboardDeclarations,
@@ -41,7 +41,7 @@ export const TesCommonDeclarations = [
 
 export const TestAllDeclarations = [
     AppComponent,
-    ...TesCommonDeclarations,
+    ...TestCommonDeclarations,
 ];
 
 

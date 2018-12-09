@@ -11,7 +11,7 @@ import { LoginComponent } from './login.component';
 import { AuthService } from '../_auth/services/auth.service';
 
 
-import { TesCommonDeclarations } from '../_shared/helpers/test.helper';
+import { TestCommonDeclarations } from '../_shared/helpers/test.helper';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -20,7 +20,7 @@ describe('LoginComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        ...TesCommonDeclarations,
+        ...TestCommonDeclarations,
       ],
       imports: [
         ReactiveFormsModule,
