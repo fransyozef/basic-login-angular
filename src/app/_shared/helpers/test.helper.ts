@@ -15,6 +15,7 @@ import { ItemsListItemComponent } from 'src/app/items/items-list-item/items-list
 import { ItemEditComponent } from 'src/app/items/item-edit/item-edit.component';
 import { ItemAddEditComponent } from 'src/app/items/item-add-edit/item-add-edit.component';
 import { AuthService } from 'src/app/_auth/services/auth.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 export const TestUiDeclarations = [
     LayoutComponent,
@@ -57,7 +58,7 @@ export const TestFormImports = [
 
 export const TestRoutingImports = [
     HttpClientTestingModule,
-    RouterModule,
+    RouterTestingModule,
 ];
 
 export const TestCommonImports = [

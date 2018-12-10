@@ -21,11 +21,6 @@ describe('ItemEditComponent', () => {
         routingModule,
       ],
       providers: [
-        {
-          provide: ActivatedRoute, useValue: {
-            snapshot: { params: { id: 1 } }
-          }
-        },
         {provide: APP_BASE_HREF, useValue: '/'}
       ]
     })
