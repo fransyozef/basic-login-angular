@@ -16,6 +16,7 @@ import { ItemEditComponent } from 'src/app/items/item-edit/item-edit.component';
 import { ItemAddEditComponent } from 'src/app/items/item-add-edit/item-add-edit.component';
 import { AuthService } from 'src/app/_auth/services/auth.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ItemModel } from 'src/app/items/_models/item.model';
 
 export const TestUiDeclarations = [
     LayoutComponent,
@@ -71,3 +72,8 @@ export const TestAuthServices = [
     AuthService,
 ];
 
+export const TestItemData: ItemModel = {
+    id: 1,
+    title: 'mock item title',
+    description : 'mock item description'
+};

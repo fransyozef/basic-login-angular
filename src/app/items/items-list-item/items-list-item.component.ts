@@ -10,7 +10,7 @@ import { ItemsService } from '../_services/items.service';
 })
 export class ItemsListItemComponent implements OnInit {
 
-  @Input() item: ItemModel;
+   @Input() item: ItemModel;
 
   constructor(
     private itemsService: ItemsService,

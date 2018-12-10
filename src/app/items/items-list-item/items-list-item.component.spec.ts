@@ -11,17 +11,20 @@ import { APP_BASE_HREF } from '@angular/common';
 import { routingModule } from '../../app.routing';
 import { RouterModule } from '@angular/router';
 
-import { TestCommonDeclarations , TestCommonImports } from '../../_shared/helpers/test.helper';
+import { TestCommonDeclarations , TestCommonImports, TestItemData } from '../../_shared/helpers/test.helper';
 
 
 
 import { ItemsService } from '../_services/items.service';
 import { ItemsListItemComponent } from './items-list-item.component';
+import { ItemModel } from '../_models/item.model';
 
 describe('ItemsListItemComponent', () => {
 
   let component: ItemsListItemComponent;
   let fixture: ComponentFixture<ItemsListItemComponent>;
+  // let comp    = fixture.componentInstance;
+
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -45,10 +48,14 @@ describe('ItemsListItemComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemsListItemComponent);
     component = fixture.componentInstance;
+
+    component.item = TestItemData;
+
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
 });
