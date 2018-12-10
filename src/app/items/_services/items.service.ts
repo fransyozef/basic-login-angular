@@ -26,8 +26,12 @@ export class ItemsService {
     this.items$.next([]);
   }
 
+  getAll(): ItemModel[] {
+    return this.items$.getValue();
+  }
+
   get(id: number): ItemModel {
-    const currentItems: ItemModel[]  = this.items$.getValue();
+    const currentItems: ItemModel[]  = this.getAll();
     if (currentItems.length === 0) {
       return null;
     }
@@ -94,7 +98,7 @@ export class ItemsService {
   }
 
   deleteItem(id: number): boolean  {
-    const currentItems: ItemModel[]  = this.items$.getValue();
+    const currentItems: ItemModel[]  = this.getAll();
     if (currentItems.length > 0) {
       const index1  = currentItems.findIndex((element) => {
         return element.id === id;
@@ -109,13 +113,13 @@ export class ItemsService {
   }
 
   addItem(item: ItemModel): void {
-    const currentItems: ItemModel[]  = this.items$.getValue();
+    const currentItems: ItemModel[]  = this.getAll();
     currentItems.push(item);
     this.items$.next(currentItems);
   }
 
   updateItem(id: number , item: ItemModel): boolean {
-    const currentItems: ItemModel[]  = this.items$.getValue();
+    const currentItems: ItemModel[]  = this.getAll();
     if (currentItems.length > 0) {
       const index1  = currentItems.findIndex((element) => {
         return element.id === id;
