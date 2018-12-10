@@ -39,9 +39,10 @@ export class AuthService {
       );
   }
 
-  resolveToken() {
+  resolveToken(): boolean {
     this.token = localStorage.getItem('token');
     this.isLoggedIn.next(this.token ?  true : false);
+    return this.token ? true : false;
   }
 
   getToken(): string {
@@ -49,7 +50,7 @@ export class AuthService {
   }
 
   hasToken(): boolean  {
-    return this.token ? true : false;
+    return this.getToken() ? true : false;
   }
 
   async logout() {
@@ -96,6 +97,10 @@ export class AuthService {
     this.userData  = null;
     this.token  = null;
     localStorage.clear();
+  }
+
+  getUserData(): UserModel {
+    return this.userData;
   }
 
   private setDataAfterLogin(data) {
