@@ -11,7 +11,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { routingModule } from '../../app.routing';
 import { RouterModule } from '@angular/router';
 
-import { TestCommonDeclarations } from '../../_shared/helpers/test.helper';
+import { TestCommonDeclarations , TestCommonImports } from '../../_shared/helpers/test.helper';
 
 
 
@@ -29,11 +29,8 @@ describe('ItemsListItemComponent', () => {
         ...TestCommonDeclarations,
       ],
       imports: [
-        RouterModule,
-        HttpClientTestingModule,
+        ...TestCommonImports,
         routingModule,
-        ReactiveFormsModule,
-        FormsModule,
       ],
       providers : [
         HttpClient,

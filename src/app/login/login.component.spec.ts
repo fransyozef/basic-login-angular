@@ -1,17 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { routingModule } from '../app.routing';
 import { APP_BASE_HREF } from '@angular/common';
+// import { ActivatedRoute, Router } from '@angular/router';
+import { TestCommonDeclarations, TestCommonImports , TestAuthServices } from '../_shared/helpers/test.helper';
+
 
 import { LoginComponent } from './login.component';
-import { AuthService } from '../_auth/services/auth.service';
-
-
-import { TestCommonDeclarations } from '../_shared/helpers/test.helper';
+// import { AuthService } from '../_auth/services/auth.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -23,15 +19,11 @@ describe('LoginComponent', () => {
         ...TestCommonDeclarations,
       ],
       imports: [
-        ReactiveFormsModule,
-        FormsModule,
-        HttpClientTestingModule,
-        RouterModule,
+        ...TestCommonImports,
         routingModule,
       ],
       providers : [
-        HttpClient,
-        AuthService,
+        ...TestAuthServices,
         {provide: APP_BASE_HREF, useValue: '/'}
       ]
     })
