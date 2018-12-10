@@ -98,7 +98,10 @@ What's a secured dashboard if you don't have any content to show? In this templa
 
 ## That's all folks
 Well that's it for now. You can find me on linkedIn : https://www.linkedin.com/in/fransjoleihitu/.
+
 Also read my articles on Medium and clap me :) : https://medium.com/@fransyozef
+
+And checkout out my Instagram page: https://www.instagram.com/thehangrycoder/
 
 Amatoooooo
 
