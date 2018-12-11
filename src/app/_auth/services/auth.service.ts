@@ -20,6 +20,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
   ) {
+    // try and find out if there was a localstorage token was set
     this.resolveToken();
   }
 
@@ -38,6 +39,9 @@ export class AuthService {
       );
   }
 
+  // check if localstorage token was set
+  // if so, set the token in the service
+  // and set the login status
   resolveToken(): boolean {
     this.token = localStorage.getItem('token');
     this.isLoggedIn.next(this.token ?  true : false);

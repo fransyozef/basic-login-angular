@@ -1,6 +1,6 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { ItemsService } from './items.service';
 import { ItemModel } from '../_models/item.model';
@@ -8,6 +8,28 @@ import { ItemModel } from '../_models/item.model';
 describe('ItemsService', () => {
 
   let service: ItemsService;
+  let httpMock: HttpTestingController;
+
+  const mockDataItem1: ItemModel = {
+    id: 1,
+    title : 'mock title 1',
+    description : 'mock description 1'
+  };
+  const mockDataItem2: ItemModel = {
+    id: 2,
+    title : 'mock title 2',
+    description : 'mock description 2'
+  };
+
+  const mockItemsArray: ItemModel[] = [
+    mockDataItem1,
+    mockDataItem2
+  ];
+
+  const fetchResponse = {
+    suscces  : true,
+    result : mockItemsArray
+  };
 
   beforeEach(() => {
 
@@ -21,13 +43,14 @@ describe('ItemsService', () => {
       ]
     });
     service = TestBed.get(ItemsService);
+    httpMock = TestBed.get(HttpTestingController);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('clear() should return empty array' , () => {
+  it('clear() should set items$ empty' , () => {
     service.clear();
     expect(service.getAll()).toEqual([]);
   });
@@ -35,97 +58,117 @@ describe('ItemsService', () => {
   it('addItem() should add an item to items$' , () => {
     service.clear();
 
-    const mockData: ItemModel = {
-      id: 1,
-      title : 'mock title',
-      description : 'mock description'
-    };
+    // add the item to items$
+    service.addItem(mockDataItem1);
 
-    service.addItem(mockData);
-
-    const test  = service.get(1);
-    expect(test).toEqual(mockData);
+    const test  = service.get(mockDataItem1.id);
+    expect(test).toEqual(mockDataItem1);
 
   });
 
-  it('deleteItem() should return true' , () => {
+  it('get() should return the object with id ' + mockDataItem1.id , () => {
     service.clear();
 
-    const mockData: ItemModel = {
-      id: 1,
-      title : 'mock title',
-      description : 'mock description'
-    };
+    // this will be added to items$ and should be found
+    service.addItem(mockDataItem1);
 
-    service.addItem(mockData);
+    // add an extra item to items$
+    service.addItem(mockDataItem2);
 
-    const test  = service.deleteItem(1);
-    expect(test).toBeTruthy();
-
+    const test  = service.get(mockDataItem1.id);
+    expect(test).toEqual(mockDataItem1);
   });
 
-  it('deleteItem() should remove the id from the items$ array' , () => {
+  describe('deleteItem()' , () => {
+
+    it('deleteItem() should return true' , () => {
+      service.clear();
+
+      // add the item to items$ to be deleted
+      service.addItem(mockDataItem1);
+
+      // add an extra item to items$
+      service.addItem(mockDataItem2);
+
+      const test  = service.deleteItem(mockDataItem1.id);
+      expect(test).toBeTruthy();
+
+    });
+
+    it('deleteItem() should remove the id from the items$ array' , () => {
+      service.clear();
+
+      // add the item to items$ to be deleted
+      service.addItem(mockDataItem1);
+
+      // add an extra item to items$
+      service.addItem(mockDataItem2);
+
+      // delete the target item
+      service.deleteItem(mockDataItem1.id);
+
+      const test  = service.get(mockDataItem1.id);
+      expect(test).toBeFalsy();
+
+    });
+  });
+
+  describe('updateItem()' , () => {
+
+    it('updateItem() should return true' , () => {
+      service.clear();
+
+      // add the item to items$
+      service.addItem(mockDataItem1);
+
+       // create an update object
+      const mockDataNew: ItemModel = {
+        id: mockDataItem1.id,
+        title : 'mock title update',
+        description : 'mock description update'
+      };
+
+      const test  = service.updateItem(mockDataItem1.id , mockDataNew);
+      expect(test).toBeTruthy();
+
+    });
+
+    it('updateItem() should return the new updated item' , () => {
+      service.clear();
+
+      // add the item to items$
+      service.addItem(mockDataItem1);
+
+      // create an update object
+      const mockDataNew: ItemModel = {
+        id: mockDataItem1.id,
+        title : 'mock title update',
+        description : 'mock description update'
+      };
+
+      // update the item
+      service.updateItem(mockDataItem1.id , mockDataNew);
+
+      // now try and find the item in items$
+      const test  = service.get(mockDataItem1.id);
+      expect(test).toEqual(mockDataNew);
+
+    });
+  });
+
+  it('fetch() should add items to items$' , () => {
     service.clear();
+    service.fetch().subscribe(
+      (response) => {
+        expect(service.getAll()).toEqual(mockItemsArray);
+      }
+    );
 
-    const mockData: ItemModel = {
-      id: 1,
-      title : 'mock title',
-      description : 'mock description'
-    };
-
-    service.addItem(mockData);
-    service.deleteItem(1);
-
-    const test  = service.get(1);
-    expect(test).toBeFalsy();
+    const req = httpMock.expectOne('/api/items');
+    expect(req.request.method).toBe('GET');
+    req.flush(fetchResponse);
 
   });
-
-  it('updateItem() should return true' , () => {
-    service.clear();
-
-    const mockData: ItemModel = {
-      id: 1,
-      title : 'mock title',
-      description : 'mock description'
-    };
-
-    service.addItem(mockData);
-
-    const mockDataNew: ItemModel = {
-      id: 1,
-      title : 'mock title update',
-      description : 'mock description update'
-    };
-
-    const test  = service.updateItem(1 , mockDataNew);
-    expect(test).toBeTruthy();
-
-  });
-
-  it('updateItem() should return the new updated item' , () => {
-    service.clear();
-
-    const mockData: ItemModel = {
-      id: 1,
-      title : 'mock title',
-      description : 'mock description'
-    };
-
-    service.addItem(mockData);
-
-    const mockDataNew: ItemModel = {
-      id: 1,
-      title : 'mock title update',
-      description : 'mock description update'
-    };
-
-    service.updateItem(1 , mockDataNew);
-    const test  = service.get(1);
-    expect(test).toEqual(mockDataNew);
-
-  });
-
 
 
 });

@@ -55,21 +55,21 @@ describe('AuthService', () => {
   });
 
   describe('hasToken()' , () => {
-    it('hasToken() should return true' , () => {
+    it('hasToken() should return true when token is set' , () => {
       localStorage.clear();
       localStorage.setItem('token' , 'mockToken');
       service.resolveToken();
       expect(service.hasToken()).toBeTruthy();
     });
-  
-    it('!hasToken() should return false' , () => {
+
+    it('hasToken() should return false when token is not set' , () => {
       localStorage.clear();
       service.resolveToken();
       expect(service.hasToken()).toBeFalsy();
     });
   });
 
-  it('getToken() return string ' + mockToken , () => {
+  it('getToken() should return string ' + mockToken , () => {
     localStorage.clear();
     localStorage.setItem('token' , mockToken);
     service.resolveToken();
@@ -77,13 +77,13 @@ describe('AuthService', () => {
   });
 
   describe('resolveToken()' , () => {
-    it('resolveToken() return true' , () => {
+    it('resolveToken() should return true when localstorage token is set' , () => {
       localStorage.clear();
       localStorage.setItem('token' , mockToken);
       expect(service.resolveToken()).toBeTruthy();
     });
-  
-    it('!resolveToken() return false' , () => {
+
+    it('resolveToken() should return false when localstorage token is empty' , () => {
       localStorage.clear();
       expect(service.resolveToken()).toBeFalsy();
     });
@@ -108,7 +108,7 @@ describe('AuthService', () => {
 
   describe('login()' , () => {
 
-    it('should return user login data', () => {
+    it('login() should return user login data', () => {
       service.login(loginData).then(
         (status) => {
           expect(status).toEqual(userData);
@@ -121,7 +121,7 @@ describe('AuthService', () => {
     });
 
 
-    it('should return token ' + mockToken, () => {
+    it('getToken() should return token ' + mockToken + ' after login()', () => {
       service.login(loginData).then(
         (status) => {
           expect(service.getToken()).toEqual(mockToken);
@@ -134,7 +134,7 @@ describe('AuthService', () => {
       req.flush(loginResponse);
     });
 
-    it('should set userdata ', () => {
+    it('getUserData() should set userdata after login()', () => {
       service.login(loginData).then(
         (status) => {
           expect(service.getUserData()).toEqual(userData);
@@ -146,7 +146,7 @@ describe('AuthService', () => {
       req.flush(loginResponse);
     });
 
-    it('should set token localstorage ', () => {
+    it('localstorage token should be set after login()', () => {
       service.login(loginData).then(
         (status) => {
           expect(localStorage.getItem('token')).toEqual(mockToken);
@@ -158,7 +158,7 @@ describe('AuthService', () => {
       req.flush(loginResponse);
     });
 
-    it('should set usermeta localstorage ', () => {
+    it('localstorage usermeta should be set after login()', () => {
       service.login(loginData).then(
         (status) => {
           expect(localStorage.getItem('usermeta')).toBeTruthy();
@@ -170,7 +170,7 @@ describe('AuthService', () => {
       req.flush(loginResponse);
     });
 
-    it('should validate token on server', () => {
+    it('validateTokenOnServer() should return user data from server', () => {
 
       service.login(loginData).then(
         (status) => {
@@ -196,7 +196,8 @@ describe('AuthService', () => {
   });
 
   describe('logout()' , () => {
-    it('should return true ', () => {
+
+    it('logout() should return true ', () => {
       service.logout().then(
         (status) => {
           expect(status).toBeTruthy();
@@ -208,56 +209,88 @@ describe('AuthService', () => {
       req.flush(loginResponse);
     });
 
-    it('should clear token ', () => {
+    it('should clear token after logout', () => {
 
-      service.logout().then(
-        (status) => {
-          expect(service.getToken()).toBeFalsy();
+      service.login(loginData).then(
+        (loginStatus) => {
+          service.logout().then(
+            (logoutStatus) => {
+              expect(service.getToken()).toBeFalsy();
+            }
+          );
+          const req1 = httpMock.expectOne('/api/auth/logout');
+          expect(req1.request.method).toBe('GET');
+          req1.flush(loginResponse);
         }
       );
 
-      const req = httpMock.expectOne('/api/auth/logout');
-      expect(req.request.method).toBe('GET');
+      const req = httpMock.expectOne('/api/auth/login');
+      expect(req.request.method).toBe('POST');
       req.flush(loginResponse);
+
     });
 
-    it('should clear token localstorage ', () => {
+    it('should clear localstorage token after logout ', () => {
 
-      service.logout().then(
-        (status) => {
-          expect(localStorage.getItem('token')).toBeFalsy();
+      service.login(loginData).then(
+        (loginStatus) => {
+          service.logout().then(
+            (logoutStatus) => {
+              expect(localStorage.getItem('token')).toBeFalsy();
+            }
+          );
+          const req1 = httpMock.expectOne('/api/auth/logout');
+          expect(req1.request.method).toBe('GET');
+          req1.flush(loginResponse);
         }
       );
 
-      const req = httpMock.expectOne('/api/auth/logout');
-      expect(req.request.method).toBe('GET');
+      const req = httpMock.expectOne('/api/auth/login');
+      expect(req.request.method).toBe('POST');
       req.flush(loginResponse);
+
     });
 
-    it('should clear userdata', () => {
+    it('should clear userdata after logout', () => {
 
-      service.logout().then(
-        (status) => {
-          expect(service.getUserData()).toBeFalsy();
+      service.login(loginData).then(
+        (loginStatus) => {
+          service.logout().then(
+            (logoutStatus) => {
+              expect(service.getUserData()).toBeFalsy();
+            }
+          );
+          const req1 = httpMock.expectOne('/api/auth/logout');
+          expect(req1.request.method).toBe('GET');
+          req1.flush(loginResponse);
         }
       );
 
-      const req = httpMock.expectOne('/api/auth/logout');
-      expect(req.request.method).toBe('GET');
+      const req = httpMock.expectOne('/api/auth/login');
+      expect(req.request.method).toBe('POST');
       req.flush(loginResponse);
+
     });
 
-    it('should clear usermeta localstorage', () => {
+    it('should clear localstorage usermeta after logout', () => {
 
-      service.logout().then(
-        (status) => {
-          expect(localStorage.getItem('usermeta')).toBeFalsy();
+      service.login(loginData).then(
+        (loginStatus) => {
+          service.logout().then(
+            (logoutStatus) => {
+              expect(localStorage.getItem('usermeta')).toBeFalsy();
+            }
+          );
+          const req1 = httpMock.expectOne('/api/auth/logout');
+          expect(req1.request.method).toBe('GET');
+          req1.flush(loginResponse);
         }
       );
 
-      const req = httpMock.expectOne('/api/auth/logout');
-      expect(req.request.method).toBe('GET');
+      const req = httpMock.expectOne('/api/auth/login');
+      expect(req.request.method).toBe('POST');
       req.flush(loginResponse);
+
     });
 
   });
