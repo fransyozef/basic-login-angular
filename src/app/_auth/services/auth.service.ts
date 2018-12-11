@@ -24,7 +24,6 @@ export class AuthService {
   }
 
   validateTokenOnServer() {
-    console.log('** validateTokenOnServer **');
     return this.http.get('/api/auth/validate-token')
       .pipe(
         map(data => {
@@ -85,7 +84,7 @@ export class AuthService {
     if (data['token'] && data['user']) {
 
         this.setDataAfterLogin(data);
-        this.isLoggedIn.next(true);
+        this.isLoggedIn.next(true); // how do I unit test this?
 
         return data['user'];
     } else {
