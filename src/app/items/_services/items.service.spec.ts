@@ -32,7 +32,7 @@ describe('ItemsService', () => {
     expect(service.getAll()).toEqual([]);
   });
 
-  it('addItem() should add an item' , () => {
+  it('addItem() should add an item to items$' , () => {
     service.clear();
 
     const mockData: ItemModel = {
@@ -48,7 +48,7 @@ describe('ItemsService', () => {
 
   });
 
-  it('deleteItem() should delete an item' , () => {
+  it('deleteItem() should return true' , () => {
     service.clear();
 
     const mockData: ItemModel = {
@@ -64,7 +64,7 @@ describe('ItemsService', () => {
 
   });
 
-  it('deleteItem() should remove the id from the array' , () => {
+  it('deleteItem() should remove the id from the items$ array' , () => {
     service.clear();
 
     const mockData: ItemModel = {
@@ -81,7 +81,7 @@ describe('ItemsService', () => {
 
   });
 
-  it('updateItem() should true' , () => {
+  it('updateItem() should return true' , () => {
     service.clear();
 
     const mockData: ItemModel = {

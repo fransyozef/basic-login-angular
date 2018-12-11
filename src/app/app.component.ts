@@ -29,9 +29,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.isLoggedIn_subscription  = this.authService.isLoggedIn.subscribe(
       (status) => {
-
-        // console.log('status' , status);
-
         this.setBodyClassName(status);
 
         if (status) {
