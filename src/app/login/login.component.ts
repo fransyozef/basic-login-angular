@@ -30,21 +30,18 @@ export class LoginComponent implements OnInit {
 
   onSubmitButtonClicked() {
     this.error  = false;
+    this.processing  = false;
     if (this.loginForm.valid) {
-      this.processing  = true;
       this.login();
     }
   }
 
-  // checkField(field: FormControl): boolean {
-  //   return field.hasError('required') && (field.dirty || field.touched);
-  // }
-
   private login() {
+    this.processing  = true;
     this.authService.login(this.loginForm.value).then(
       data => {
         if (data) {
-          this.router.navigate(['/dashboard']);
+          this.handleLoginSuccess();
         } else {
           this.handleLoginError();
         }
@@ -54,6 +51,12 @@ export class LoginComponent implements OnInit {
         console.log(err);
         this.handleLoginError();
       });
+  }
+
+  private handleLoginSuccess() {
+    this.processing = false;
+    this.error  = false;
+    this.router.navigate(['/dashboard']);
   }
 
   private handleLoginError() {

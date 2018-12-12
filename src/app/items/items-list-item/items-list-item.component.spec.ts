@@ -1,19 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { TestCommonDeclarations , TestCommonImports, TestItemData1 } from '../../_shared/helpers/test.helper';
 
 import { APP_BASE_HREF } from '@angular/common';
 
 import { routingModule } from '../../app.routing';
-import { RouterModule } from '@angular/router';
-
-import { TestCommonDeclarations , TestCommonImports, TestItemData } from '../../_shared/helpers/test.helper';
-
-
 
 import { ItemsService } from '../_services/items.service';
 import { ItemsListItemComponent } from './items-list-item.component';
@@ -24,7 +15,6 @@ describe('ItemsListItemComponent', () => {
   let component: ItemsListItemComponent;
   let fixture: ComponentFixture<ItemsListItemComponent>;
   // let comp    = fixture.componentInstance;
-
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -38,7 +28,7 @@ describe('ItemsListItemComponent', () => {
       providers : [
         HttpClient,
         ItemsService,
-        {provide: APP_BASE_HREF, useValue: '/'}
+        { provide: APP_BASE_HREF, useValue: '/' }
       ]
     })
     .compileComponents();
@@ -49,7 +39,7 @@ describe('ItemsListItemComponent', () => {
     fixture = TestBed.createComponent(ItemsListItemComponent);
     component = fixture.componentInstance;
 
-    component.item = TestItemData;
+    // component.item = TestItemData1;
 
     fixture.detectChanges();
   });
@@ -57,5 +47,5 @@ describe('ItemsListItemComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
+
 });

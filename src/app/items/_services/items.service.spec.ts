@@ -2,6 +2,8 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
+import { TestItemData1, TestItemData2 } from '../../_shared/helpers/test.helper';
+
 import { ItemsService } from './items.service';
 import { ItemModel } from '../_models/item.model';
 
@@ -10,16 +12,8 @@ describe('ItemsService', () => {
   let service: ItemsService;
   let httpMock: HttpTestingController;
 
-  const mockDataItem1: ItemModel = {
-    id: 1,
-    title : 'mock title 1',
-    description : 'mock description 1'
-  };
-  const mockDataItem2: ItemModel = {
-    id: 2,
-    title : 'mock title 2',
-    description : 'mock description 2'
-  };
+  const mockDataItem1: ItemModel = TestItemData1;
+  const mockDataItem2: ItemModel = TestItemData2;
 
   const mockItemsArray: ItemModel[] = [
     mockDataItem1,
@@ -124,8 +118,8 @@ describe('ItemsService', () => {
        // create an update object
       const mockDataNew: ItemModel = {
         id: mockDataItem1.id,
-        title : 'mock title update',
-        description : 'mock description update'
+        title : 'mock title update ' + mockDataItem1.id,
+        description : 'mock description update ' + mockDataItem1.id
       };
 
       const test  = service.updateItem(mockDataItem1.id , mockDataNew);
@@ -142,8 +136,8 @@ describe('ItemsService', () => {
       // create an update object
       const mockDataNew: ItemModel = {
         id: mockDataItem1.id,
-        title : 'mock title update',
-        description : 'mock description update'
+        title : 'mock title update ' + mockDataItem1.id,
+        description : 'mock description update ' + mockDataItem1.id
       };
 
       // update the item

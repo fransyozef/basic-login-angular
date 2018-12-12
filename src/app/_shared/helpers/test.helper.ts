@@ -72,8 +72,13 @@ export const TestAuthServices = [
     AuthService,
 ];
 
-export const TestItemData: ItemModel = {
+export const TestItemData1: ItemModel = {
     id: 1,
-    title: 'mock item title',
-    description : 'mock item description'
+    title: 'mock item title 1',
+    description : 'mock item description 1'
+};
+export const TestItemData2: ItemModel = {
+    id: 2,
+    title: 'mock item title 2',
+    description : 'mock item description 2'
 };
