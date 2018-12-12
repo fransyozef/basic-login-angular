@@ -7,7 +7,7 @@ https://medium.com/@fransyozef/a-basic-angular-dashboard-template-with-authentic
 When I started with programming (even with Angular), I noticed I had to look up a lot of things. Things like
 - how to create a login page?
 - how to handle authentication?
-- how to fetch items from a serve?r
+- how to fetch items from a serve?
 - how to create/read/update/delete items(s)?
 - routing?
 - component structure?
