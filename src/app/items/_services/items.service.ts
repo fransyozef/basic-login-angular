@@ -15,9 +15,6 @@ export class ItemsService {
   // create a BehaviourSubject Observable with type ItemModel[] and default value []
   items$ = new BehaviorSubject<ItemModel[]>([]);
 
-  // deprecated
-  fetchCount$ = new BehaviorSubject<number>(0);
-
   constructor(
     private http: HttpClient,
   ) { }
@@ -49,7 +46,7 @@ export class ItemsService {
             return (data['success'] && data['success'] === true) ? true : false;
           }
         ),
-        tap((success) => { this.deleteItem(id); }),
+        tap((success) => { if (success) { this.deleteItem(id); }}), // when success, delete the item from the local service
         catchError((err) => {
           return of(false);
         }),
@@ -76,7 +73,7 @@ export class ItemsService {
             return (responseData['success'] && responseData['success'] === true) ? responseData['result'] : false;
           }
         ),
-        tap(item => { this.updateItem(id , item); }),
+        tap(item => { if (item) { this.updateItem(id , item); }}), // when success result, update the item in the local service
         catchError(err => {
           return of(false);
         }),
@@ -90,7 +87,7 @@ export class ItemsService {
             return (responseData['success'] && responseData['success'] === true) ? responseData['result'] : false;
           }
         ),
-        tap(item => { this.addItem(item); }),
+        tap(item => { if (item) { this.addItem(item); }}), // when success, add the item to the local service
         catchError(err => {
           return of(false);
         }),
@@ -131,16 +128,6 @@ export class ItemsService {
       }
     }
     return false;
-  }
-
-  // deprecated
-  setFetchCount(count: number) {
-    this.fetchCount$.next(count);
-  }
-
-  // deprecated
-  increaseFetchCount() {
-    this.fetchCount$.next(this.fetchCount$.getValue() + 1);
   }
 
   fetch(): Observable<any> {
