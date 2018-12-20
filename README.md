@@ -138,5 +138,3 @@ THIS PROJECT IS AS IS.
 **Free Software, Hell Yeah!**
 
 
-https://medium.com/@AikoPath/testing-angular-components-with-input-3bd6c07cfaf6
-https://vsavkin.com/three-ways-to-test-angular-2-components-dcea8e90bd8d
