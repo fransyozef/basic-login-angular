@@ -12,7 +12,7 @@
             </div>
 
             <div class="form-group">
-                <label for="inputPassword" [ngClass]="{'required': checkField(loginForm.get('username')) }">Password *</label>
+                <label for="inputPassword" [ngClass]="{'required': checkField(loginForm.get('password')) }">Password *</label>
                 <input type="password" class="form-control rounded" [ngClass]="{'required': checkField(loginForm.get('password')) }" id="inputPassword" aria-describedby="passwordHelp" placeholder="Enter password" formControlName="password">
             </div>
 
@@ -20,7 +20,7 @@
               <strong>There was an error!</strong><br>Please check your username/password and try again.
             </p>
 
-            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="button" [disabled]="!loginForm.valid || processing" (click)="onSubmitButtonClicked()">{{ processing ? 'Validating...' : 'Sign in' }}</button>
+            <button id="submitButton" class="btn btn-lg btn-primary btn-block text-uppercase" type="button" [disabled]="!loginForm.valid || processing" (click)="onSubmitButtonClicked()">{{ processing ? 'Validating...' : 'Sign in' }}</button>
 
           </form>
         </div>
