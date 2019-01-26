@@ -1,13 +1,20 @@
 import { LoginPage } from './login.po';
 import { browser } from 'protractor';
 
+
+function hasCssClass(element, cls: string) {
+  return element.getAttribute('class').then(function (classes) {
+      return classes.split(' ').indexOf(cls) !== -1;
+  });
+};
+
 describe('Login page', () => {
   let page: LoginPage;
 
   const correctEmail  = 'my@email.com';
   const notCorrectEmail  = 'notACorrectEmail';
 
-  const correctPassword  = 'aVerySecretEmail';
+  const correctPassword  = 'aVerySecretPassword';
 
   beforeEach(() => {
     page = new LoginPage();
@@ -22,42 +29,50 @@ describe('Login page', () => {
     expect(page.submitButton).toBeTruthy();
   });
 
-  it('should have empty data', () => {
-    expect(page.inputEmail.getAttribute('value')).toBe('');
-    expect(page.inputPassword.getAttribute('value')).toBe('');
+  it('should have username and password inputfields', () => {
+    expect(page.inputEmail).toBeTruthy();
+    expect(page.inputPassword).toBeTruthy();
   });
 
-  describe('Check validations', () => {
+  describe('Check invalid validations', () => {
 
     beforeEach(() => {
       page.inputEmail.clear();
-      page.inputEmail.sendKeys('');
-
       page.inputPassword.clear();
+
+      // page.inputEmail.click();
+      // page.inputPassword.click();
+
+      page.inputEmail.sendKeys();
       page.inputPassword.sendKeys('');
+
+      // browser.sleep(5000);
     });
 
-    it('email field should have required class', () => {
+    it('email field and label should have required class', () => {
+      expect(page.inputEmail.getAttribute('class')).toMatch('required');
       expect(page.inputEmailLabel.getAttribute('class')).toMatch('required');
     });
 
-    it('password field should have required class', () => {
+    it('password field and label should have required class', () => {
+      expect(page.inputPassword.getAttribute('class')).toMatch('required');
       expect(page.inputPasswordLabel.getAttribute('class')).toMatch('required');
     });
 
-    describe('Enter incorrect email', () => {
+    it('submitbutton should be disabled', () => {
+      expect(page.submitButton.getAttribute('disabled')).toBeTruthy();
+    });
+
+    describe('Enter invalid email', () => {
 
       beforeEach(() => {
+        page.inputEmail.clear();
         page.inputEmail.sendKeys(notCorrectEmail);
-        page.inputPassword.clear();
-      });
-
-      it('email label field should have required class', () => {
-        expect(page.inputEmailLabel.getAttribute('class')).toMatch('required');
       });
 
       it('email field should have required class', () => {
         expect(page.inputEmail.getAttribute('class')).toMatch('required');
+        expect(page.inputEmailLabel.getAttribute('class')).toMatch('required');
       });
 
       it('submitbutton should be disabled', () => {
@@ -66,82 +81,33 @@ describe('Login page', () => {
 
     });
 
-    describe('Enter correct email', () => {
+  });
 
-      beforeEach(() => {
-        page.inputEmail.clear();
-        page.inputEmail.sendKeys(correctEmail);
-        page.inputPassword.clear();
-      });
+  describe('Check valid validations', () => {
 
-      it('email label field should not have required class', () => {
-        expect(page.inputEmailLabel.getAttribute('class')).not.toMatch('required');
-      });
+    beforeEach(() => {
+      page.inputEmail.clear();
+      page.inputPassword.clear();
 
-      it('email field should not have required class', () => {
-        expect(page.inputEmail.getAttribute('class')).not.toMatch('required');
-      });
-
+      page.inputEmail.sendKeys(correctEmail);
+      page.inputPassword.sendKeys(correctPassword);
     });
 
-    describe('Did not entered password', () => {
-
-      beforeEach(() => {
-        page.inputEmail.clear();
-
-        page.inputPassword.clear();
-      });
-
-      it('password label field should have required class', () => {
-        expect(page.inputPasswordLabel.getAttribute('class')).toMatch('required');
-      });
-
-      it('password field should have required class', () => {
-        expect(page.inputPassword.getAttribute('class')).toMatch('required');
-      });
-
+    it('email field and label should NOT have required class', () => {
+      expect(page.inputEmail.getAttribute('class')).not.toMatch('required');
+      expect(page.inputEmailLabel.getAttribute('class')).not.toMatch('required');
     });
 
-    describe('Enter correct password', () => {
-
-      beforeEach(() => {
-        page.inputEmail.clear();
-
-        page.inputPassword.clear();
-        page.inputPassword.sendKeys(correctPassword);
-      });
-
-      it('password label field should not have required class', () => {
-        expect(page.inputPasswordLabel.getAttribute('class')).not.toMatch('required');
-      });
-
-      it('password field should not have required class', () => {
-        expect(page.inputPassword.getAttribute('class')).not.toMatch('required');
-      });
-
+    it('password field and label should NOT have required class', () => {
+      expect(page.inputPassword.getAttribute('class')).not.toMatch('required');
+      expect(page.inputPasswordLabel.getAttribute('class')).not.toMatch('required');
     });
 
-    describe('Enter correct email and password', () => {
-
-      beforeEach(() => {
-        page.inputEmail.clear();
-        page.inputEmail.sendKeys(correctEmail);
-
-        page.inputPassword.clear();
-        page.inputPassword.sendKeys(correctPassword);
-      });
-
-      it('submitbutton should NOT be disabled', () => {
-        expect(page.submitButton.getAttribute('disabled')).toBeFalsy();
-      });
-
-
+    it('submitbutton should be enabled', () => {
+      expect(page.submitButton.getAttribute('disabled')).toBeFalsy();
     });
 
   });
-
-
-
 
 
 });

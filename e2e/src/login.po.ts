@@ -7,7 +7,7 @@ export class LoginPage {
 
   inputPassword   = element(by.css('input[formControlName="password"]'));
   inputPasswordLabel  = element(by.css('label[for="inputPassword"]'));
-  
+
   submitButton  = element(by.id('submitButton'));
 
   navigateTo() {
@@ -17,7 +17,4 @@ export class LoginPage {
   getForm() {
     return element(by.css('[formGroup]="loginForm"'));
   }
-  // getParagraphText() {
-  //   return element(by.css('app-root h1')).getText();
-  // }
 }
