@@ -11,11 +11,6 @@ function hasCssClass(element, cls: string) {
 describe('Login page', () => {
   let page: LoginPage;
 
-  const correctEmail  = 'my@email.com';
-  const notCorrectEmail  = 'notACorrectEmail';
-
-  const correctPassword  = 'aVerySecretPassword';
-
   beforeEach(() => {
     page = new LoginPage();
   });
@@ -40,13 +35,8 @@ describe('Login page', () => {
       page.inputEmail.clear();
       page.inputPassword.clear();
 
-      // page.inputEmail.click();
-      // page.inputPassword.click();
-
       page.inputEmail.sendKeys();
-      page.inputPassword.sendKeys('');
-
-      // browser.sleep(5000);
+      page.inputPassword.sendKeys();
     });
 
     it('email field and label should have required class', () => {
@@ -67,7 +57,7 @@ describe('Login page', () => {
 
       beforeEach(() => {
         page.inputEmail.clear();
-        page.inputEmail.sendKeys(notCorrectEmail);
+        page.inputEmail.sendKeys(page.notCorrectEmail);
       });
 
       it('email field should have required class', () => {
@@ -86,11 +76,7 @@ describe('Login page', () => {
   describe('Check valid validations', () => {
 
     beforeEach(() => {
-      page.inputEmail.clear();
-      page.inputPassword.clear();
-
-      page.inputEmail.sendKeys(correctEmail);
-      page.inputPassword.sendKeys(correctPassword);
+       page.login();
     });
 
     it('email field and label should NOT have required class', () => {
