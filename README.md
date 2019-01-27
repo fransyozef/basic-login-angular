@@ -37,6 +37,11 @@ So I created this "tiny" project to demonstrate some basics design patterns.
 - Next to build and start the project : ``` npm start ```
 - Open your browser and navigate to http://localhost:4200/
 
+## Testing
+There are 2 tests :
+- Karma / Jasmine tests : ``` ng test ```
+- Protractor e2e tests : ``` ng e2e ```
+
 ## The authentication pattern
 So what's the authentication pattern/lifecycle?
 
