@@ -17,6 +17,7 @@ import { ItemAddEditComponent } from 'src/app/items/item-add-edit/item-add-edit.
 import { AuthService } from 'src/app/_auth/services/auth.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ItemModel } from 'src/app/items/_models/item.model';
+import { LogoutComponent } from 'src/app/logout/logout.component';
 
 export const TestUiDeclarations = [
     LayoutComponent,
@@ -38,6 +39,7 @@ export const TestDashboardDeclarations = [
 
 export const TestLoginDeclarations = [
     LoginComponent,
+    LogoutComponent,
 ];
 
 export const TestCommonDeclarations = [

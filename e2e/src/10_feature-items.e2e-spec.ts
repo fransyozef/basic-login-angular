@@ -1,5 +1,5 @@
 import { LoginPage } from './login.po';
-import { FeatureItems } from './10_feature-items.po';
+import { FeatureItems } from './feature-items.po';
 import { browser, protractor } from 'protractor';
 
 
@@ -7,21 +7,25 @@ function hasCssClass(element, cls: string) {
   return element.getAttribute('class').then(function (classes) {
       return classes.split(' ').indexOf(cls) !== -1;
   });
-};
+}
 
 describe('Feature Items page', () => {
   let loginPage: LoginPage;
   let page: FeatureItems;
 
+  const EC = protractor.ExpectedConditions;
+
   describe('Do login', () => {
 
-    const EC = protractor.ExpectedConditions;
 
     beforeEach(() => {
 
       page  = new FeatureItems();
 
       loginPage = new LoginPage();
+      loginPage.navigateLogout();
+
+      browser.wait(EC.urlContains('login') , 2000);
       loginPage.navigateTo();
     });
   
@@ -30,7 +34,7 @@ describe('Feature Items page', () => {
     });
   
     it('should have a submitbutton', () => {
-      expect(loginPage.submitButton).toBeTruthy();
+      expect(loginPage.submitButton.isPresent()).toBeTruthy();
     });
 
     describe('To Dashboard', () => {
@@ -39,7 +43,7 @@ describe('Feature Items page', () => {
       });
 
       it('submitbutton should be enabled', () => {
-        expect(page.submitButton.getAttribute('disabled')).not.toBeTruthy();
+        expect(loginPage.submitButton.getAttribute('disabled')).not.toBeTruthy();
       });
 
       describe('To Items', () => {
@@ -49,12 +53,18 @@ describe('Feature Items page', () => {
           browser.wait(EC.urlContains('dashboard') , 2000);
           page.navigateTo();
         });
-
+        
         it('should be at items main page', () => {
-          browser.wait(EC.urlContains('items') , 2000);
+          browser.wait(EC.urlContains('items') , 5000);
           expect(true).toBeTruthy();
-          browser.sleep(1000);
+          // browser.sleep(1000);
         });
+
+        it('should have components', () => {
+          expect(page.appItemAddEditComponent.isPresent()).toBeTruthy();
+          expect(page.appItemsList.isPresent()).toBeTruthy();
+        });
+
       });
 
     });

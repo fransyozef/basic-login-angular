@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { ItemsComponent } from './items/items.component';
 import { ItemEditComponent } from './items/item-edit/item-edit.component';
+import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
 
@@ -15,6 +16,7 @@ const routes: Routes = [
     { path: 'item-edit/:id', component: ItemEditComponent , canActivate: [AuthGuard] },
 
     { path: 'login', component: LoginComponent },
+    { path: 'logout', component: LogoutComponent },
     { path: '**', redirectTo: '/dashboard', pathMatch: 'full' },
     { path: '',  redirectTo: '/dashboard', pathMatch: 'full' }, // catch all route
 

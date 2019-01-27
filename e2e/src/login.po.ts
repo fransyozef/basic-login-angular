@@ -1,22 +1,32 @@
 import { browser, by, element } from 'protractor';
 
 export class LoginPage {
-
+  
   correctEmail  = 'my@email.com';
   notCorrectEmail  = 'notACorrectEmail';
-
+  
   correctPassword  = 'aVerySecretPassword';
+  
+  currentComponent  = element(by.tagName('app-login'));
 
-  inputEmail  = element(by.css('input[formControlName="username"]'));
-  inputEmailLabel  = element(by.css('label[for="inputEmail"]'));
+  inputEmail  = this.getCurrentComponent().element(by.css('input[formControlName="username"]'));
+  inputEmailLabel  = this.getCurrentComponent().element(by.css('label[for="inputEmail"]'));
 
-  inputPassword   = element(by.css('input[formControlName="password"]'));
-  inputPasswordLabel  = element(by.css('label[for="inputPassword"]'));
+  inputPassword   = this.getCurrentComponent().element(by.css('input[formControlName="password"]'));
+  inputPasswordLabel  = this.getCurrentComponent().element(by.css('label[for="inputPassword"]'));
 
-  submitButton  = element(by.id('submitButton'));
+  submitButton  = this.getCurrentComponent().element(by.id('submitButton'));
+
+  getCurrentComponent() {
+    return this.currentComponent;
+  }
 
   navigateTo() {
     return browser.get('/login');
+  }
+
+  navigateLogout() {
+    return browser.get('/logout');
   }
 
   login() {
@@ -26,7 +36,8 @@ export class LoginPage {
     this.inputPassword.sendKeys(this.correctPassword);
   }
 
+
   getForm() {
-    return element(by.css('[formGroup]="loginForm"'));
+    return this.currentComponent.element(by.css('[formGroup]="loginForm"'));
   }
 }

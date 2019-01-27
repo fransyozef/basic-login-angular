@@ -20,6 +20,7 @@ import { ItemsListItemComponent } from './items/items-list-item/items-list-item.
 import { ItemsService } from './items/_services/items.service';
 import { ItemEditComponent } from './items/item-edit/item-edit.component';
 import { ItemAddEditComponent } from './items/item-add-edit/item-add-edit.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ItemAddEditComponent } from './items/item-add-edit/item-add-edit.compon
     ItemsListItemComponent,
     ItemEditComponent,
     ItemAddEditComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

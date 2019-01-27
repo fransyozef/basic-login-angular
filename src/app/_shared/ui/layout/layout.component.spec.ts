@@ -21,6 +21,7 @@ import { ItemsListItemComponent } from 'src/app/items/items-list-item/items-list
 import { ItemAddEditComponent } from 'src/app/items/item-add-edit/item-add-edit.component';
 import { ItemEditComponent } from 'src/app/items/item-edit/item-edit.component';
 import { ItemsService } from 'src/app/items/_services/items.service';
+import { LogoutComponent } from 'src/app/logout/logout.component';
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
@@ -34,6 +35,7 @@ describe('LayoutComponent', () => {
         FooterComponent,
         DashboardComponent,
         LoginComponent,
+        LogoutComponent,
         ItemsComponent,
         ItemsListComponent,
         ItemsListItemComponent,

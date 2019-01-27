@@ -25,7 +25,11 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.initForm();
+    if (this.authService.hasToken()) {
+      this.handleLoginSuccess();
+    } else {
+      this.initForm();
+    }
   }
 
   onSubmitButtonClicked() {

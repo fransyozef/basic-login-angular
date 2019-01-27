@@ -1,32 +1,39 @@
 import { LoginPage } from './login.po';
-import { browser } from 'protractor';
+import { browser , protractor } from 'protractor';
 
 
 function hasCssClass(element, cls: string) {
   return element.getAttribute('class').then(function (classes) {
       return classes.split(' ').indexOf(cls) !== -1;
   });
-};
+}
 
 describe('Login page', () => {
   let page: LoginPage;
 
+  const EC = protractor.ExpectedConditions;
+
   beforeEach(() => {
     page = new LoginPage();
+    page.navigateLogout();
+    browser.wait(EC.urlContains('login') , 2000);
+  });
+
+  it('should have a login component', () => {
+    expect(page.getCurrentComponent().isPresent()).toBeTruthy();
   });
 
   it('should have a loginform', () => {
-    page.navigateTo();
     expect(page.getForm()).toBeTruthy();
   });
 
   it('should have a submitbutton', () => {
-    expect(page.submitButton).toBeTruthy();
+    expect(page.submitButton.isPresent()).toBeTruthy();
   });
 
   it('should have username and password inputfields', () => {
-    expect(page.inputEmail).toBeTruthy();
-    expect(page.inputPassword).toBeTruthy();
+    expect(page.inputEmail.isPresent()).toBeTruthy();
+    expect(page.inputPassword.isPresent()).toBeTruthy();
   });
 
   describe('Check invalid validations', () => {
@@ -42,11 +49,6 @@ describe('Login page', () => {
     it('email field and label should have required class', () => {
       expect(page.inputEmail.getAttribute('class')).toMatch('required');
       expect(page.inputEmailLabel.getAttribute('class')).toMatch('required');
-    });
-
-    it('password field and label should have required class', () => {
-      expect(page.inputPassword.getAttribute('class')).toMatch('required');
-      expect(page.inputPasswordLabel.getAttribute('class')).toMatch('required');
     });
 
     it('submitbutton should be disabled', () => {
