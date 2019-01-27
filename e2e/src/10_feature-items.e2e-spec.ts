@@ -9,9 +9,9 @@ function hasCssClass(element, cls: string) {
   });
 }
 
-describe('Feature Items page', () => {
-  let loginPage: LoginPage;
-  let page: FeatureItems;
+describe('* Feature Items page', () => {
+  const loginPage: LoginPage = new LoginPage();
+  const page: FeatureItems = new FeatureItems();
 
   const EC = protractor.ExpectedConditions;
 
@@ -19,10 +19,6 @@ describe('Feature Items page', () => {
 
 
     beforeEach(() => {
-
-      page  = new FeatureItems();
-
-      loginPage = new LoginPage();
       loginPage.navigateLogout();
 
       browser.wait(EC.urlContains('login') , 2000);

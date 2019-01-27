@@ -8,13 +8,12 @@ function hasCssClass(element, cls: string) {
   });
 }
 
-describe('Login page', () => {
-  let page: LoginPage;
+describe('* Login page', () => {
+  const page: LoginPage = new LoginPage();
 
   const EC = protractor.ExpectedConditions;
 
   beforeEach(() => {
-    page = new LoginPage();
     page.navigateLogout();
     browser.wait(EC.urlContains('login') , 2000);
   });
@@ -59,7 +58,7 @@ describe('Login page', () => {
 
       beforeEach(() => {
         page.inputEmail.clear();
-        page.inputEmail.sendKeys(page.notCorrectEmail);
+        page.inputEmail.sendKeys(page.mockData.incorrectEmail);
       });
 
       it('email field should have required class', () => {

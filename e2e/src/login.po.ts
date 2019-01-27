@@ -1,11 +1,12 @@
 import { browser, by, element } from 'protractor';
 
 export class LoginPage {
-  
-  correctEmail  = 'my@email.com';
-  notCorrectEmail  = 'notACorrectEmail';
-  
-  correctPassword  = 'aVerySecretPassword';
+
+  mockData  = {
+    email  : 'my@email.com',
+    password: 'aVerySecretPassword',
+    incorrectEmail : 'notACorrectEmail'
+  };
   
   currentComponent  = element(by.tagName('app-login'));
 
@@ -31,9 +32,9 @@ export class LoginPage {
 
   login() {
     this.inputEmail.clear();
-    this.inputEmail.sendKeys(this.correctEmail);
+    this.inputEmail.sendKeys(this.mockData.email);
     this.inputPassword.clear();
-    this.inputPassword.sendKeys(this.correctPassword);
+    this.inputPassword.sendKeys(this.mockData.password);
   }
 
 
