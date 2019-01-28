@@ -14,5 +14,6 @@
     <p class="alert alert-warning" role="alert"  *ngIf="isProcessing">
         Please wait..
     </p>
-    <button *ngIf="!isProcessing" type="button" class="btn btn-primary btn-block" (click)="onSubmit($event)" [disabled]="!itemForm.valid && !isProcessing">{{getButtonText()}}</button>
+
+    <button *ngIf="!isProcessing" type="button" class="btn btn-primary btn-block submitbutton" (click)="onSubmit($event)" [disabled]="!itemForm.valid && !isProcessing">{{getButtonText()}}</button>
 </form>
