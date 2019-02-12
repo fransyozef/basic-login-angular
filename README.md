@@ -1,4 +1,4 @@
-# Angular Dashboard starterkit template 
+# Angular Dashboard starterkit template V1.0.0
 This is an Angular dashboard starterkit template project.
 I've also got a Medium post about this project :
 https://medium.com/@fransyozef/a-basic-angular-dashboard-template-with-authentication-5785e1a793a
