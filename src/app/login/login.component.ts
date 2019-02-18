@@ -32,6 +32,13 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  // checkRequiredClass(frmControl: string) {
+  //   const t  = this.loginForm.get()
+  //   return {
+  //     'required' : false
+  //   };
+  // }
+
   onSubmitButtonClicked() {
     this.error  = false;
     this.processing  = false;
