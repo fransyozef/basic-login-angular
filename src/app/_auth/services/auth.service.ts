@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, throwError, of, BehaviorSubject } from 'rxjs';
 import { map, mergeMap, switchMap, catchError, tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 import { UserModel } from '../models/user.model';
 
 @Injectable({
@@ -25,7 +26,7 @@ export class AuthService {
   }
 
   validateTokenOnServer() {
-    return this.http.get('/api/auth/validate-token')
+    return this.http.get(environment['apiBaseUrl'] + '/api/auth/validate-token')
       .pipe(
         map(data => {
             return data['user'] ? data['user'] : false;
@@ -57,7 +58,7 @@ export class AuthService {
   }
 
   async logout() {
-    return this.http.get('/api/auth/logout').toPromise().then(
+    return this.http.get(environment['apiBaseUrl'] + '/api/auth/logout').toPromise().then(
       () => {
         // clear any current data
         this.clearData();
@@ -82,7 +83,7 @@ export class AuthService {
       'password' : password
     };
 
-    const data  = await this.http.post('/api/auth/login' , loginData).toPromise();
+    const data  = await this.http.post(environment['apiBaseUrl'] + '/api/auth/login' , loginData).toPromise();
 
     // this part only gets executed when the promise is resolved
     if (data['token'] && data['user']) {

@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject,throwError, of , BehaviorSubject} from 'rxjs';
@@ -40,7 +41,7 @@ export class ItemsService {
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete('/api/item/' + id)
+    return this.http.delete(environment['apiBaseUrl'] + '/api/item/' + id)
       .pipe(
         map(data => {
             return (data['success'] && data['success'] === true) ? true : false;
@@ -54,7 +55,7 @@ export class ItemsService {
   }
 
   fetchItem(id: number): Observable<any> {
-    return this.http.get('/api/item/' + id)
+    return this.http.get(environment['apiBaseUrl'] + '/api/item/' + id)
       .pipe(
         map(data => {
             return (data['success'] && data['success'] === true) ? data['result'] : false;
@@ -67,7 +68,7 @@ export class ItemsService {
   }
 
   update(id: number , payload: UpdateItemModel): Observable<any> {
-    return this.http.put('/api/item/' + id , payload)
+    return this.http.put(environment['apiBaseUrl'] + '/api/item/' + id , payload)
       .pipe(
         map(responseData => {
             return (responseData['success'] && responseData['success'] === true) ? responseData['result'] : false;
@@ -81,7 +82,7 @@ export class ItemsService {
   }
 
   add(payload: AddItemModel): Observable<any> {
-    return this.http.post('/api/item' , payload)
+    return this.http.post(environment['apiBaseUrl'] + '/api/item' , payload)
       .pipe(
         map(responseData => {
             return (responseData['success'] && responseData['success'] === true) ? responseData['result'] : false;
@@ -134,7 +135,7 @@ export class ItemsService {
 
     this.clear();
 
-    return this.http.get('/api/items')
+    return this.http.get(environment['apiBaseUrl'] + '/api/items')
       .pipe(
         map(data => {
             return (data['result']) ? data['result'] : false;

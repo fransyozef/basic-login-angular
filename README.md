@@ -42,6 +42,10 @@ There are 2 tests :
 - Karma / Jasmine tests : ``` ng test ```
 - Protractor e2e tests : ``` ng e2e ```
 
+## Build and run production
+- ``` ng build --prod ``` 
+- ``` http-server ./dist/angular-dashboard-starterkit -p 8888 ``` 
+
 ## The authentication pattern
 So what's the authentication pattern/lifecycle?
 
