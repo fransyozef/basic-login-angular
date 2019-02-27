@@ -46,6 +46,16 @@ There are 2 tests :
 - ``` ng build --prod ``` 
 - ``` http-server ./dist/angular-dashboard-starterkit -p 8888 ``` 
 
+The production build will replace the environment.ts (environment.prod.ts) and the fakebackend.ts (fakebackend.prod.ts)  file. 
+
+## Build staging
+For staging there are 2 flavours:
+- Build without mocks: ``` ng build -c=staging_mock ``` 
+- Build with mocks: ``` ng build -c=staging``` 
+
+The environment.ts contens file will be replaced with the environment.staging.ts file.
+
+
 ## The authentication pattern
 So what's the authentication pattern/lifecycle?
 
