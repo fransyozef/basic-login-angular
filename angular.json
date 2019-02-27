@@ -54,6 +54,18 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.staging.ts"
+                },
+                {
+                  "replace": "src/app/_shared/fakebackend.ts",
+                  "with": "src/app/_shared/fakebackend.prod.ts"
+                }
+              ]
+            },
+            "staging_mock": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
                 }
               ]
             }
