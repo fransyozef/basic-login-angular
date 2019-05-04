@@ -68,6 +68,26 @@
                   "with": "src/environments/environment.staging.ts"
                 }
               ]
+            },
+            "no_mocks": {
+              "fileReplacements": [
+                {
+                  "replace": "src/app/_shared/fakebackend.ts",
+                  "with": "src/app/_shared/fakebackend.prod.ts"
+                }
+              ]
+            },
+            "api": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.api.ts"
+                },
+                {
+                  "replace": "src/app/_shared/fakebackend.ts",
+                  "with": "src/app/_shared/fakebackend.prod.ts"
+                }
+              ]
             }
           }
         },
@@ -79,6 +99,12 @@
           "configurations": {
             "production": {
               "browserTarget": "angular-dashboard-starterkit:build:production"
+            },
+            "no_mocks": {
+              "browserTarget": "angular-dashboard-starterkit:build:no_mocks"
+            },
+            "api": {
+              "browserTarget": "angular-dashboard-starterkit:build:api"
             }
           }
         },
