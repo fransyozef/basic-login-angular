@@ -51,9 +51,14 @@ The production build will replace the environment.ts (environment.prod.ts) and t
 ## Build staging
 For staging there are 2 flavours:
 - Build without mocks: ``` ng build -c=staging ``` 
-- Build with mocks: ``` ng build -c=staging_mock``` 
+- Build with mocks: ``` ng build -c=staging-mocks``` 
 
 The environment.ts contens file will be replaced with the environment.staging.ts file.
+
+## Serving
+- Default (with mocks) : ``` ng serve ``` 
+- Without mocks : ``` ng serve --c no-mocks``` 
+- Without mocks, different api url : ``` ng serve --c api``` 
 
 
 ## The authentication pattern
