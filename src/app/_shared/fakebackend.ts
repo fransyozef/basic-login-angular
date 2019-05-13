@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, of, throwError , EMPTY} from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
- 
+import { environment } from './../../environments/environment';
+
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
 
@@ -17,7 +18,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             const auth    = request.headers.get('Authorization');
 
             // Items list
-            if (request.url.endsWith('/api/items') && request.method === 'GET') {
+            if (request.url.endsWith(environment['apiBaseUrl'] + '/api/items') && request.method === 'GET') {
 
                 console.log('[ intercepting ] ' + request.method + ' : ' + request.url + ' ' + auth);
 
@@ -64,7 +65,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             }
 
             // Add item
-            if (request.url.endsWith('/api/item') && request.method === 'POST') {
+            if (request.url.endsWith(environment['apiBaseUrl'] + '/api/item') && request.method === 'POST') {
 
                 console.log('[ intercepting ] ' + request.method + ' : ' + request.url + ' ' + auth);
 
@@ -80,7 +81,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             }
 
             // Update item
-            if (request.url.startsWith('/api/item') && request.method === 'PUT') {
+            if (request.url.startsWith(environment['apiBaseUrl'] + '/api/item') && request.method === 'PUT') {
 
                 console.log('[ intercepting ] ' + request.method + ' : ' + request.url + ' ' + auth);
 
@@ -94,7 +95,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             }
 
             // Delete item
-            if (request.url.startsWith('/api/item/') && request.method === 'DELETE') {
+            if (request.url.startsWith(environment['apiBaseUrl'] + '/api/item/') && request.method === 'DELETE') {
                 console.log('[ intercepting ] ' + request.method + ' : ' + request.url + ' ' + auth);
                 const body = {
                     success : true
@@ -104,7 +105,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
 
             // LOGIN
-            if (request.url.endsWith('/api/auth/login') && request.method === 'POST') {
+            if (request.url.endsWith(environment['apiBaseUrl'] + '/api/auth/login') && request.method === 'POST') {
 
                 console.log('[ intercepting ] ' + request.method + ' : ' + request.url + ' ' + auth);
 
@@ -128,7 +129,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             }
 
             // LOGOUT
-            if (request.url.endsWith('/api/auth/logout') && request.method === 'GET') {
+            if (request.url.endsWith(environment['apiBaseUrl'] + '/api/auth/logout') && request.method === 'GET') {
                 console.log('[ intercepting ] ' + request.method + ' : ' + request.url + ' ' + auth);
                 const body = {
                   success : true
@@ -137,7 +138,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             }
 
             // VALIDATE TOKEN
-            if (request.url.endsWith('/api/auth/validate-token') && request.method === 'GET') {
+            if (request.url.endsWith(environment['apiBaseUrl'] + '/api/auth/validate-token') && request.method === 'GET') {
                 console.log('[ intercepting ] ' + request.method + ' : ' + request.url + ' ' + auth);
                 const body = {
                     user : {
