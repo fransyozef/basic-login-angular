@@ -1,6 +1,6 @@
 {
   "name": "angular-dashboard-starterkit",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -28,6 +28,7 @@
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
+    "npm-registry-fetch": ">=4.0.5",
     "node-forge": ">=0.10.0",
     "yargs-parser": ">=13.1.2",
     "http-proxy": ">=1.18.1",
