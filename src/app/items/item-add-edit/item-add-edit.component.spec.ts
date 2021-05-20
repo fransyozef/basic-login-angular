@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 
 import { TestCommonImports } from '../../_shared/helpers/test.helper';
@@ -10,7 +10,7 @@ describe('ItemAddEditComponent', () => {
   let component: ItemAddEditComponent;
   let fixture: ComponentFixture<ItemAddEditComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ItemAddEditComponent ],
       imports: [

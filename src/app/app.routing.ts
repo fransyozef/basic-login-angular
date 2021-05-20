@@ -20,4 +20,4 @@ const routes: Routes = [
     { path: '',  redirectTo: '/dashboard', pathMatch: 'full' }, // catch all route
 
 ];
-export const routingModule: ModuleWithProviders<any> = RouterModule.forRoot(routes);
+export const routingModule: ModuleWithProviders<any> = RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' });

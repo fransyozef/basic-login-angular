@@ -1,6 +1,6 @@
 import { ItemsComponent } from './items/items.component';
 
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { APP_BASE_HREF } from '@angular/common';
 
@@ -9,7 +9,7 @@ import { routingModule } from './app.routing';
 import { TestAllDeclarations, TestCommonImports } from '../app/_shared/helpers/test.helper';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         ...TestAllDeclarations,
@@ -23,7 +23,7 @@ describe('AppComponent', () => {
       ]
     }).compileComponents();
   }));
-  it('should create the app', async(() => {
+  it('should create the app', waitForAsync(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
