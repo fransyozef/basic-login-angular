@@ -72,7 +72,7 @@ describe('ItemsListItemComponent', () => {
 
     item: ItemModel;
 
-    @ViewChild(ItemsListItemComponent)
+    @ViewChild(ItemsListItemComponent, /* TODO: add static flag */ {})
     public itemsListItemComponent: ItemsListItemComponent;
   }
 
